@@ -9,18 +9,18 @@
           <Key>
             <PropertyRef Name="ClassStudent_ID" />
           </Key>
-          <Property Name="ClassStudent_ID" Type="nchar" MaxLength="10" Nullable="false" />
-          <Property Name="ClassStudent_Name" Type="nchar" MaxLength="10" Nullable="false" />
-          <Property Name="ClassStudent_Tel" Type="nchar" MaxLength="10" />
-          <Property Name="ClassStudent_ClassTeacher" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="ClassStudent_ID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ClassStudent_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ClassStudent_Tel" Type="nvarchar" MaxLength="50" />
+          <Property Name="ClassStudent_ClassTeacher" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="ClassTeacher">
           <Key>
             <PropertyRef Name="ClassTeacher_ID" />
           </Key>
-          <Property Name="ClassTeacher_ID" Type="nchar" MaxLength="10" Nullable="false" />
-          <Property Name="ClassTeacher_Name" Type="nchar" MaxLength="10" Nullable="false" />
-          <Property Name="ClassTeacher_Tel" Type="nchar" MaxLength="10" />
+          <Property Name="ClassTeacher_ID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ClassTeacher_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ClassTeacher_Tel" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <Association Name="FK_ClassStudent_ClassTeacher">
           <End Role="ClassTeacher" Type="Self.ClassTeacher" Multiplicity="1" />
@@ -45,37 +45,29 @@
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="LearnModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
-        <EntityContainer Name="LearnModelContainer" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="ClassStudent" EntityType="LearnModel.ClassStudent" />
-          <EntitySet Name="ClassTeacher" EntityType="LearnModel.ClassTeacher" />
-          <AssociationSet Name="FK_ClassStudent_ClassTeacher" Association="LearnModel.FK_ClassStudent_ClassTeacher">
-            <End Role="ClassTeacher" EntitySet="ClassTeacher" />
-            <End Role="ClassStudent" EntitySet="ClassStudent" />
-          </AssociationSet>
-        </EntityContainer>
+      <Schema Namespace="LearnModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="ClassStudent">
           <Key>
             <PropertyRef Name="ClassStudent_ID" />
           </Key>
-          <Property Name="ClassStudent_ID" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="ClassStudent_Name" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="ClassStudent_Tel" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="ClassStudent_ClassTeacher" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="ClassTeacher" Relationship="LearnModel.FK_ClassStudent_ClassTeacher" FromRole="ClassStudent" ToRole="ClassTeacher" />
+          <Property Name="ClassStudent_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClassStudent_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClassStudent_Tel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ClassStudent_ClassTeacher" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="ClassTeacher" Relationship="Self.FK_ClassStudent_ClassTeacher" FromRole="ClassStudent" ToRole="ClassTeacher" />
         </EntityType>
         <EntityType Name="ClassTeacher">
           <Key>
             <PropertyRef Name="ClassTeacher_ID" />
           </Key>
-          <Property Name="ClassTeacher_ID" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="ClassTeacher_Name" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="ClassTeacher_Tel" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="ClassStudent" Relationship="LearnModel.FK_ClassStudent_ClassTeacher" FromRole="ClassTeacher" ToRole="ClassStudent" />
+          <Property Name="ClassTeacher_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClassTeacher_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClassTeacher_Tel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ClassStudent" Relationship="Self.FK_ClassStudent_ClassTeacher" FromRole="ClassTeacher" ToRole="ClassStudent" />
         </EntityType>
         <Association Name="FK_ClassStudent_ClassTeacher">
-          <End Type="LearnModel.ClassTeacher" Role="ClassTeacher" Multiplicity="1" />
-          <End Type="LearnModel.ClassStudent" Role="ClassStudent" Multiplicity="*" />
+          <End Role="ClassTeacher" Type="Self.ClassTeacher" Multiplicity="1" />
+          <End Role="ClassStudent" Type="Self.ClassStudent" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ClassTeacher">
               <PropertyRef Name="ClassTeacher_ID" />
@@ -85,30 +77,36 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityContainer Name="LearnEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ClassStudent" EntityType="Self.ClassStudent" />
+          <EntitySet Name="ClassTeacher" EntityType="Self.ClassTeacher" />
+          <AssociationSet Name="FK_ClassStudent_ClassTeacher" Association="Self.FK_ClassStudent_ClassTeacher">
+            <End Role="ClassTeacher" EntitySet="ClassTeacher" />
+            <End Role="ClassStudent" EntitySet="ClassStudent" />
+          </AssociationSet>
+        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs" Space="C-S">
-        <Alias Key="Model" Value="LearnModel" />
-        <Alias Key="Target" Value="LearnModel.Store" />
-        <EntityContainerMapping CdmEntityContainer="LearnModelContainer" StorageEntityContainer="LearnModelStoreContainer">
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="LearnModelStoreContainer" CdmEntityContainer="LearnEntities">
           <EntitySetMapping Name="ClassStudent">
             <EntityTypeMapping TypeName="LearnModel.ClassStudent">
               <MappingFragment StoreEntitySet="ClassStudent">
-                <ScalarProperty Name="ClassStudent_ClassTeacher" ColumnName="ClassStudent_ClassTeacher" />
-                <ScalarProperty Name="ClassStudent_Tel" ColumnName="ClassStudent_Tel" />
-                <ScalarProperty Name="ClassStudent_Name" ColumnName="ClassStudent_Name" />
                 <ScalarProperty Name="ClassStudent_ID" ColumnName="ClassStudent_ID" />
+                <ScalarProperty Name="ClassStudent_Name" ColumnName="ClassStudent_Name" />
+                <ScalarProperty Name="ClassStudent_Tel" ColumnName="ClassStudent_Tel" />
+                <ScalarProperty Name="ClassStudent_ClassTeacher" ColumnName="ClassStudent_ClassTeacher" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ClassTeacher">
             <EntityTypeMapping TypeName="LearnModel.ClassTeacher">
               <MappingFragment StoreEntitySet="ClassTeacher">
-                <ScalarProperty Name="ClassTeacher_Tel" ColumnName="ClassTeacher_Tel" />
-                <ScalarProperty Name="ClassTeacher_Name" ColumnName="ClassTeacher_Name" />
                 <ScalarProperty Name="ClassTeacher_ID" ColumnName="ClassTeacher_ID" />
+                <ScalarProperty Name="ClassTeacher_Name" ColumnName="ClassTeacher_Name" />
+                <ScalarProperty Name="ClassTeacher_Tel" ColumnName="ClassTeacher_Tel" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -117,23 +115,22 @@
     </edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
-  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
-    <edmx:Connection>
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
       </DesignerInfoPropertySet>
-    </edmx:Connection>
-    <edmx:Options>
+    </Connection>
+    <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
-        <DesignerProperty Name="UseLegacyProvider" Value="False" />
       </DesignerInfoPropertySet>
-    </edmx:Options>
+    </Options>
     <!-- Diagram content (shape and connector positions) -->
-    <edmx:Diagrams>
-    </edmx:Diagrams>
-  </edmx:Designer>
+    <Diagrams></Diagrams>
+  </Designer>
 </edmx:Edmx>

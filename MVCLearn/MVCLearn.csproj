@@ -45,10 +45,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=10.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.10.1.1\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -122,21 +133,33 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LearnController.cs" />
+    <Compile Include="Extensions\Extensions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ClassStudent.cs">
+      <DependentUpon>LearnModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ClassTeacher.cs">
+      <DependentUpon>LearnModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\LearnModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>LearnModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\LearnModel.Designer.cs" />
-    <Compile Include="Models\LearnModel1.Designer.cs">
+    <Compile Include="Models\LearnModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LearnModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LearnModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>LearnModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\ClassViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -150,12 +173,18 @@
     <Content Include="Models\LearnModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>LearnModel.Context.cs</LastGenOutput>
+      <DependentUpon>LearnModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\LearnModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>LearnModel.edmx</DependentUpon>
+      <LastGenOutput>LearnModel.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <EntityDeploy Include="Models\LearnModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>LearnModel1.Designer.cs</LastGenOutput>
+      <LastGenOutput>LearnModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
     <Content Include="Models\LearnModel.edmx.diagram">
       <DependentUpon>LearnModel.edmx</DependentUpon>
@@ -185,11 +214,11 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Learn\Class.cshtml" />
+    <Content Include="Views\Learn\_ClassStdent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="ViewModels\" />
-    <Folder Include="Views\Learn\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

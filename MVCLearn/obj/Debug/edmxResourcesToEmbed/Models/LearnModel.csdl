@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LearnModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="ClassStudent">
+    <Key>
+      <PropertyRef Name="ClassStudent_ID" />
+    </Key>
+    <Property Name="ClassStudent_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ClassStudent_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ClassStudent_Tel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ClassStudent_ClassTeacher" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="ClassTeacher" Relationship="Self.FK_ClassStudent_ClassTeacher" FromRole="ClassStudent" ToRole="ClassTeacher" />
+  </EntityType>
+  <EntityType Name="ClassTeacher">
+    <Key>
+      <PropertyRef Name="ClassTeacher_ID" />
+    </Key>
+    <Property Name="ClassTeacher_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ClassTeacher_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ClassTeacher_Tel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="ClassStudent" Relationship="Self.FK_ClassStudent_ClassTeacher" FromRole="ClassTeacher" ToRole="ClassStudent" />
+  </EntityType>
+  <Association Name="FK_ClassStudent_ClassTeacher">
+    <End Role="ClassTeacher" Type="Self.ClassTeacher" Multiplicity="1" />
+    <End Role="ClassStudent" Type="Self.ClassStudent" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ClassTeacher">
+        <PropertyRef Name="ClassTeacher_ID" />
+      </Principal>
+      <Dependent Role="ClassStudent">
+        <PropertyRef Name="ClassStudent_ClassTeacher" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="LearnEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="ClassStudent" EntityType="Self.ClassStudent" />
+    <EntitySet Name="ClassTeacher" EntityType="Self.ClassTeacher" />
+    <AssociationSet Name="FK_ClassStudent_ClassTeacher" Association="Self.FK_ClassStudent_ClassTeacher">
+      <End Role="ClassTeacher" EntitySet="ClassTeacher" />
+      <End Role="ClassStudent" EntitySet="ClassStudent" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

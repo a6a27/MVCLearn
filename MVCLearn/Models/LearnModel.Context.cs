@@ -13,10 +13,10 @@ namespace MVCLearn.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class LearnModelContainer : DbContext
+    public partial class LearnEntities : DbContext
     {
-        public LearnModelContainer()
-            : base("name=LearnModelContainer")
+        public LearnEntities()
+            : base("name=LearnEntities")
         {
         }
     

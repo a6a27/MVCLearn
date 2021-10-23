@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="LearnModelStoreContainer" CdmEntityContainer="LearnEntities">
+    <EntitySetMapping Name="ClassStudent">
+      <EntityTypeMapping TypeName="LearnModel.ClassStudent">
+        <MappingFragment StoreEntitySet="ClassStudent">
+          <ScalarProperty Name="ClassStudent_ID" ColumnName="ClassStudent_ID" />
+          <ScalarProperty Name="ClassStudent_Name" ColumnName="ClassStudent_Name" />
+          <ScalarProperty Name="ClassStudent_Tel" ColumnName="ClassStudent_Tel" />
+          <ScalarProperty Name="ClassStudent_ClassTeacher" ColumnName="ClassStudent_ClassTeacher" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ClassTeacher">
+      <EntityTypeMapping TypeName="LearnModel.ClassTeacher">
+        <MappingFragment StoreEntitySet="ClassTeacher">
+          <ScalarProperty Name="ClassTeacher_ID" ColumnName="ClassTeacher_ID" />
+          <ScalarProperty Name="ClassTeacher_Name" ColumnName="ClassTeacher_Name" />
+          <ScalarProperty Name="ClassTeacher_Tel" ColumnName="ClassTeacher_Tel" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LearnModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="ClassStudent">
+    <Key>
+      <PropertyRef Name="ClassStudent_ID" />
+    </Key>
+    <Property Name="ClassStudent_ID" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ClassStudent_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ClassStudent_Tel" Type="nvarchar" MaxLength="50" />
+    <Property Name="ClassStudent_ClassTeacher" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ClassTeacher">
+    <Key>
+      <PropertyRef Name="ClassTeacher_ID" />
+    </Key>
+    <Property Name="ClassTeacher_ID" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ClassTeacher_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ClassTeacher_Tel" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_ClassStudent_ClassTeacher">
+    <End Role="ClassTeacher" Type="Self.ClassTeacher" Multiplicity="1" />
+    <End Role="ClassStudent" Type="Self.ClassStudent" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ClassTeacher">
+        <PropertyRef Name="ClassTeacher_ID" />
+      </Principal>
+      <Dependent Role="ClassStudent">
+        <PropertyRef Name="ClassStudent_ClassTeacher" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="LearnModelStoreContainer">
+    <EntitySet Name="ClassStudent" EntityType="Self.ClassStudent" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ClassTeacher" EntityType="Self.ClassTeacher" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_ClassStudent_ClassTeacher" Association="Self.FK_ClassStudent_ClassTeacher">
+      <End Role="ClassTeacher" EntitySet="ClassTeacher" />
+      <End Role="ClassStudent" EntitySet="ClassStudent" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
