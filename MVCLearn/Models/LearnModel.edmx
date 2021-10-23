@@ -4,16 +4,87 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Namespace="LearnModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005">
-        <EntityContainer Name="LearnModelTargetContainer" >
+    <Schema Namespace="LearnModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ClassStudent">
+          <Key>
+            <PropertyRef Name="ClassStudent_ID" />
+          </Key>
+          <Property Name="ClassStudent_ID" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="ClassStudent_Name" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="ClassStudent_Tel" Type="nchar" MaxLength="10" />
+          <Property Name="ClassStudent_ClassTeacher" Type="nchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ClassTeacher">
+          <Key>
+            <PropertyRef Name="ClassTeacher_ID" />
+          </Key>
+          <Property Name="ClassTeacher_ID" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="ClassTeacher_Name" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="ClassTeacher_Tel" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <Association Name="FK_ClassStudent_ClassTeacher">
+          <End Role="ClassTeacher" Type="Self.ClassTeacher" Multiplicity="1" />
+          <End Role="ClassStudent" Type="Self.ClassStudent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClassTeacher">
+              <PropertyRef Name="ClassTeacher_ID" />
+            </Principal>
+            <Dependent Role="ClassStudent">
+              <PropertyRef Name="ClassStudent_ClassTeacher" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LearnModelStoreContainer">
+          <EntitySet Name="ClassStudent" EntityType="Self.ClassStudent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClassTeacher" EntityType="Self.ClassTeacher" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ClassStudent_ClassTeacher" Association="Self.FK_ClassStudent_ClassTeacher">
+            <End Role="ClassTeacher" EntitySet="ClassTeacher" />
+            <End Role="ClassStudent" EntitySet="ClassStudent" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="LearnModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
         <EntityContainer Name="LearnModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ClassStudent" EntityType="LearnModel.ClassStudent" />
+          <EntitySet Name="ClassTeacher" EntityType="LearnModel.ClassTeacher" />
+          <AssociationSet Name="FK_ClassStudent_ClassTeacher" Association="LearnModel.FK_ClassStudent_ClassTeacher">
+            <End Role="ClassTeacher" EntitySet="ClassTeacher" />
+            <End Role="ClassStudent" EntitySet="ClassStudent" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="ClassStudent">
+          <Key>
+            <PropertyRef Name="ClassStudent_ID" />
+          </Key>
+          <Property Name="ClassStudent_ID" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ClassStudent_Name" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ClassStudent_Tel" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ClassStudent_ClassTeacher" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="ClassTeacher" Relationship="LearnModel.FK_ClassStudent_ClassTeacher" FromRole="ClassStudent" ToRole="ClassTeacher" />
+        </EntityType>
+        <EntityType Name="ClassTeacher">
+          <Key>
+            <PropertyRef Name="ClassTeacher_ID" />
+          </Key>
+          <Property Name="ClassTeacher_ID" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ClassTeacher_Name" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ClassTeacher_Tel" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="ClassStudent" Relationship="LearnModel.FK_ClassStudent_ClassTeacher" FromRole="ClassTeacher" ToRole="ClassStudent" />
+        </EntityType>
+        <Association Name="FK_ClassStudent_ClassTeacher">
+          <End Type="LearnModel.ClassTeacher" Role="ClassTeacher" Multiplicity="1" />
+          <End Type="LearnModel.ClassStudent" Role="ClassStudent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClassTeacher">
+              <PropertyRef Name="ClassTeacher_ID" />
+            </Principal>
+            <Dependent Role="ClassStudent">
+              <PropertyRef Name="ClassStudent_ClassTeacher" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -21,7 +92,26 @@
       <Mapping xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs" Space="C-S">
         <Alias Key="Model" Value="LearnModel" />
         <Alias Key="Target" Value="LearnModel.Store" />
-        <EntityContainerMapping CdmEntityContainer="LearnModelContainer" StorageEntityContainer="LearnModelTargetContainer">
+        <EntityContainerMapping CdmEntityContainer="LearnModelContainer" StorageEntityContainer="LearnModelStoreContainer">
+          <EntitySetMapping Name="ClassStudent">
+            <EntityTypeMapping TypeName="LearnModel.ClassStudent">
+              <MappingFragment StoreEntitySet="ClassStudent">
+                <ScalarProperty Name="ClassStudent_ClassTeacher" ColumnName="ClassStudent_ClassTeacher" />
+                <ScalarProperty Name="ClassStudent_Tel" ColumnName="ClassStudent_Tel" />
+                <ScalarProperty Name="ClassStudent_Name" ColumnName="ClassStudent_Name" />
+                <ScalarProperty Name="ClassStudent_ID" ColumnName="ClassStudent_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClassTeacher">
+            <EntityTypeMapping TypeName="LearnModel.ClassTeacher">
+              <MappingFragment StoreEntitySet="ClassTeacher">
+                <ScalarProperty Name="ClassTeacher_Tel" ColumnName="ClassTeacher_Tel" />
+                <ScalarProperty Name="ClassTeacher_Name" ColumnName="ClassTeacher_Name" />
+                <ScalarProperty Name="ClassTeacher_ID" ColumnName="ClassTeacher_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -38,6 +128,8 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="False" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
       </DesignerInfoPropertySet>
     </edmx:Options>
     <!-- Diagram content (shape and connector positions) -->
