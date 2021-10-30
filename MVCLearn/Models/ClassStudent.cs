@@ -14,11 +14,22 @@ namespace MVCLearn.Models
     
     public partial class ClassStudent
     {
-        public string ClassStudent_ID { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ClassStudent()
+        {
+            this.ClassStudentParents = new HashSet<ClassStudentParents>();
+        }
+    
+        public int ClassStudent_ID { get; set; }
         public string ClassStudent_Name { get; set; }
         public string ClassStudent_Tel { get; set; }
-        public string ClassStudent_ClassTeacher { get; set; }
+        public Nullable<int> ClassStudent_ClassTeacher_ID { get; set; }
+        public string ClassStudent_Sex { get; set; }
+        public string ClassStudent_Address { get; set; }
+        public System.DateTime ClassStudent_Birth { get; set; }
     
         public virtual ClassTeacher ClassTeacher { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ClassStudentParents> ClassStudentParents { get; set; }
     }
 }

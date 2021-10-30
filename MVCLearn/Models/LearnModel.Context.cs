@@ -26,6 +26,7 @@ namespace MVCLearn.Models
         }
     
         public virtual DbSet<ClassStudent> ClassStudent { get; set; }
+        public virtual DbSet<ClassStudentParents> ClassStudentParents { get; set; }
         public virtual DbSet<ClassTeacher> ClassTeacher { get; set; }
     }
 }

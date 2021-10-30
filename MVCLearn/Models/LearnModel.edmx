@@ -9,82 +9,148 @@
           <Key>
             <PropertyRef Name="ClassStudent_ID" />
           </Key>
-          <Property Name="ClassStudent_ID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ClassStudent_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ClassStudent_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ClassStudent_Tel" Type="nvarchar" MaxLength="50" />
-          <Property Name="ClassStudent_ClassTeacher" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ClassStudent_ClassTeacher_ID" Type="int" />
+          <Property Name="ClassStudent_Sex" Type="nvarchar" MaxLength="1" Nullable="false" />
+          <Property Name="ClassStudent_Address" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ClassStudent_Birth" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ClassStudentParents">
+          <Key>
+            <PropertyRef Name="ClassStudentParents_ID" />
+          </Key>
+          <Property Name="ClassStudentParents_ID" Type="int" Nullable="false" />
+          <Property Name="ClassStudentParents_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ClassStudentParents_Tel" Type="nvarchar" MaxLength="50" />
+          <Property Name="ClassStudentParents_ClassStudent_ID" Type="int" Nullable="false" />
+          <Property Name="ClassStudentParents_Sex" Type="nvarchar" MaxLength="1" Nullable="false" />
+          <Property Name="ClassStudentParents_Address" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ClassStudentParents_Birth" Type="date" Nullable="false" />
         </EntityType>
         <EntityType Name="ClassTeacher">
           <Key>
             <PropertyRef Name="ClassTeacher_ID" />
           </Key>
-          <Property Name="ClassTeacher_ID" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ClassTeacher_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ClassTeacher_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ClassTeacher_Tel" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <Association Name="FK_ClassStudent_ClassTeacher">
-          <End Role="ClassTeacher" Type="Self.ClassTeacher" Multiplicity="1" />
+          <End Role="ClassTeacher" Type="Self.ClassTeacher" Multiplicity="0..1" />
           <End Role="ClassStudent" Type="Self.ClassStudent" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ClassTeacher">
               <PropertyRef Name="ClassTeacher_ID" />
             </Principal>
             <Dependent Role="ClassStudent">
-              <PropertyRef Name="ClassStudent_ClassTeacher" />
+              <PropertyRef Name="ClassStudent_ClassTeacher_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ClassStudentParents_ClassStudent">
+          <End Role="ClassStudent" Type="Self.ClassStudent" Multiplicity="1" />
+          <End Role="ClassStudentParents" Type="Self.ClassStudentParents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClassStudent">
+              <PropertyRef Name="ClassStudent_ID" />
+            </Principal>
+            <Dependent Role="ClassStudentParents">
+              <PropertyRef Name="ClassStudentParents_ClassStudent_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="LearnModelStoreContainer">
           <EntitySet Name="ClassStudent" EntityType="Self.ClassStudent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClassStudentParents" EntityType="Self.ClassStudentParents" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ClassTeacher" EntityType="Self.ClassTeacher" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_ClassStudent_ClassTeacher" Association="Self.FK_ClassStudent_ClassTeacher">
             <End Role="ClassTeacher" EntitySet="ClassTeacher" />
             <End Role="ClassStudent" EntitySet="ClassStudent" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClassStudentParents_ClassStudent" Association="Self.FK_ClassStudentParents_ClassStudent">
+            <End Role="ClassStudent" EntitySet="ClassStudent" />
+            <End Role="ClassStudentParents" EntitySet="ClassStudentParents" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="LearnModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="LearnEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ClassStudent" EntityType="LearnModel.ClassStudent" />
+          <EntitySet Name="ClassStudentParents" EntityType="LearnModel.ClassStudentParents" />
+          <EntitySet Name="ClassTeacher" EntityType="LearnModel.ClassTeacher" />
+          <AssociationSet Name="FK_ClassStudent_ClassTeacher" Association="LearnModel.FK_ClassStudent_ClassTeacher">
+            <End Role="ClassTeacher" EntitySet="ClassTeacher" />
+            <End Role="ClassStudent" EntitySet="ClassStudent" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ClassStudentParents_ClassStudent" Association="LearnModel.FK_ClassStudentParents_ClassStudent">
+            <End Role="ClassStudent" EntitySet="ClassStudent" />
+            <End Role="ClassStudentParents" EntitySet="ClassStudentParents" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="ClassStudent">
           <Key>
             <PropertyRef Name="ClassStudent_ID" />
           </Key>
-          <Property Name="ClassStudent_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ClassStudent_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClassStudent_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClassStudent_Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ClassStudent_Tel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ClassStudent_ClassTeacher" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="ClassTeacher" Relationship="Self.FK_ClassStudent_ClassTeacher" FromRole="ClassStudent" ToRole="ClassTeacher" />
+          <Property Name="ClassStudent_ClassTeacher_ID" Type="Int32" />
+          <Property Name="ClassStudent_Sex" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="ClassStudent_Address" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ClassStudent_Birth" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="ClassTeacher" Relationship="LearnModel.FK_ClassStudent_ClassTeacher" FromRole="ClassStudent" ToRole="ClassTeacher" />
+          <NavigationProperty Name="ClassStudentParents" Relationship="LearnModel.FK_ClassStudentParents_ClassStudent" FromRole="ClassStudent" ToRole="ClassStudentParents" />
+        </EntityType>
+        <EntityType Name="ClassStudentParents">
+          <Key>
+            <PropertyRef Name="ClassStudentParents_ID" />
+          </Key>
+          <Property Name="ClassStudentParents_ID" Type="Int32" Nullable="false" />
+          <Property Name="ClassStudentParents_Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ClassStudentParents_Tel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ClassStudentParents_ClassStudent_ID" Type="Int32" Nullable="false" />
+          <Property Name="ClassStudentParents_Sex" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="ClassStudentParents_Address" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ClassStudentParents_Birth" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="ClassStudent" Relationship="LearnModel.FK_ClassStudentParents_ClassStudent" FromRole="ClassStudentParents" ToRole="ClassStudent" />
         </EntityType>
         <EntityType Name="ClassTeacher">
           <Key>
             <PropertyRef Name="ClassTeacher_ID" />
           </Key>
-          <Property Name="ClassTeacher_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ClassTeacher_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClassTeacher_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClassTeacher_Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ClassTeacher_Tel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="ClassStudent" Relationship="Self.FK_ClassStudent_ClassTeacher" FromRole="ClassTeacher" ToRole="ClassStudent" />
+          <NavigationProperty Name="ClassStudent" Relationship="LearnModel.FK_ClassStudent_ClassTeacher" FromRole="ClassTeacher" ToRole="ClassStudent" />
         </EntityType>
         <Association Name="FK_ClassStudent_ClassTeacher">
-          <End Role="ClassTeacher" Type="Self.ClassTeacher" Multiplicity="1" />
-          <End Role="ClassStudent" Type="Self.ClassStudent" Multiplicity="*" />
+          <End Type="LearnModel.ClassTeacher" Role="ClassTeacher" Multiplicity="0..1" />
+          <End Type="LearnModel.ClassStudent" Role="ClassStudent" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ClassTeacher">
               <PropertyRef Name="ClassTeacher_ID" />
             </Principal>
             <Dependent Role="ClassStudent">
-              <PropertyRef Name="ClassStudent_ClassTeacher" />
+              <PropertyRef Name="ClassStudent_ClassTeacher_ID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="LearnEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="ClassStudent" EntityType="Self.ClassStudent" />
-          <EntitySet Name="ClassTeacher" EntityType="Self.ClassTeacher" />
-          <AssociationSet Name="FK_ClassStudent_ClassTeacher" Association="Self.FK_ClassStudent_ClassTeacher">
-            <End Role="ClassTeacher" EntitySet="ClassTeacher" />
-            <End Role="ClassStudent" EntitySet="ClassStudent" />
-          </AssociationSet>
-        </EntityContainer>
+        <Association Name="FK_ClassStudentParents_ClassStudent">
+          <End Type="LearnModel.ClassStudent" Role="ClassStudent" Multiplicity="1" />
+          <End Type="LearnModel.ClassStudentParents" Role="ClassStudentParents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ClassStudent">
+              <PropertyRef Name="ClassStudent_ID" />
+            </Principal>
+            <Dependent Role="ClassStudentParents">
+              <PropertyRef Name="ClassStudentParents_ClassStudent_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -94,19 +160,35 @@
           <EntitySetMapping Name="ClassStudent">
             <EntityTypeMapping TypeName="LearnModel.ClassStudent">
               <MappingFragment StoreEntitySet="ClassStudent">
-                <ScalarProperty Name="ClassStudent_ID" ColumnName="ClassStudent_ID" />
-                <ScalarProperty Name="ClassStudent_Name" ColumnName="ClassStudent_Name" />
+                <ScalarProperty Name="ClassStudent_Birth" ColumnName="ClassStudent_Birth" />
+                <ScalarProperty Name="ClassStudent_Address" ColumnName="ClassStudent_Address" />
+                <ScalarProperty Name="ClassStudent_Sex" ColumnName="ClassStudent_Sex" />
+                <ScalarProperty Name="ClassStudent_ClassTeacher_ID" ColumnName="ClassStudent_ClassTeacher_ID" />
                 <ScalarProperty Name="ClassStudent_Tel" ColumnName="ClassStudent_Tel" />
-                <ScalarProperty Name="ClassStudent_ClassTeacher" ColumnName="ClassStudent_ClassTeacher" />
+                <ScalarProperty Name="ClassStudent_Name" ColumnName="ClassStudent_Name" />
+                <ScalarProperty Name="ClassStudent_ID" ColumnName="ClassStudent_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClassStudentParents">
+            <EntityTypeMapping TypeName="LearnModel.ClassStudentParents">
+              <MappingFragment StoreEntitySet="ClassStudentParents">
+                <ScalarProperty Name="ClassStudentParents_Birth" ColumnName="ClassStudentParents_Birth" />
+                <ScalarProperty Name="ClassStudentParents_Address" ColumnName="ClassStudentParents_Address" />
+                <ScalarProperty Name="ClassStudentParents_Sex" ColumnName="ClassStudentParents_Sex" />
+                <ScalarProperty Name="ClassStudentParents_ClassStudent_ID" ColumnName="ClassStudentParents_ClassStudent_ID" />
+                <ScalarProperty Name="ClassStudentParents_Tel" ColumnName="ClassStudentParents_Tel" />
+                <ScalarProperty Name="ClassStudentParents_Name" ColumnName="ClassStudentParents_Name" />
+                <ScalarProperty Name="ClassStudentParents_ID" ColumnName="ClassStudentParents_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ClassTeacher">
             <EntityTypeMapping TypeName="LearnModel.ClassTeacher">
               <MappingFragment StoreEntitySet="ClassTeacher">
-                <ScalarProperty Name="ClassTeacher_ID" ColumnName="ClassTeacher_ID" />
-                <ScalarProperty Name="ClassTeacher_Name" ColumnName="ClassTeacher_Name" />
                 <ScalarProperty Name="ClassTeacher_Tel" ColumnName="ClassTeacher_Tel" />
+                <ScalarProperty Name="ClassTeacher_Name" ColumnName="ClassTeacher_Name" />
+                <ScalarProperty Name="ClassTeacher_ID" ColumnName="ClassTeacher_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

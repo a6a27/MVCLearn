@@ -1,0 +1,213 @@
+﻿@using Common
+@model MVCLearn.ViewModels.EditClassViewModel
+
+@{
+    var FORMID = "Class_Tab2_List_Table";
+    var Table_Id = "Class_Tab2_List_Table";
+    var CloseALL = true;
+    var DisabledTag = "disabled";
+    switch (Model.ClassStudent_D.Action_Type)
+    {
+        case Action_Type.Update:
+        case Action_Type.Insert:
+            CloseALL = false;
+            DisabledTag = "";
+            break;
+        default:
+            break;
+    }
+}
+
+<div id="tab2_content" class="ibox float-e-margins" style="padding: 5px 0px 0px 0px;">
+    @using (Ajax.BeginForm("Index", "LearnEdit", null,
+new AjaxOptions { UpdateTargetId = "tab2", HttpMethod = "Post" },
+new { ID = FORMID }))
+    {
+        @Html.HiddenFor(x => x.ClassStudent_D.Action_Type)
+        @Html.HiddenFor(x => x.ClassStudent_D.ClassStudent.ClassStudent_ID)
+        <div class="panel-default">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+                <div class="panel-heading panel-heading-footer">
+                    <h4 class="panel-title">學生基本資料</h4>
+                </div>
+            </a>
+            <div id="collapse2" class="panel-collapse collapse in">
+                <div>
+                    <table class="table_common layout_fix" rules="rows">
+                        <tr>
+                            <td class="column_title ">
+                                @*學生編號*@
+                                @Html.DisplayNameFor(x => x.ClassStudent_D.ClassStudent.ClassStudent_ID)
+                            </td>
+                            <td class="column_search" colspan="5">
+                                @Html.TextBoxFor(x => x.ClassStudent_D.ClassStudent.ClassStudent_ID, new { }.ReadOnly(CloseALL))
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="column_title ">
+                                @*學生姓名*@
+                                @Html.DisplayNameFor(x => x.ClassStudent_D.ClassStudent.ClassStudent_Name)
+                            </td>
+                            <td class="column_search" colspan="5">
+                                @Html.TextBoxFor(x => x.ClassStudent_D.ClassStudent.ClassStudent_Name, new { }.ReadOnly(CloseALL))
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="column_title ">
+                                @*學生電話*@
+                                @Html.DisplayNameFor(x => x.ClassStudent_D.ClassStudent.ClassStudent_Tel)
+                            </td>
+                            <td class="column_search" colspan="5">
+                                @Html.TextBoxFor(x => x.ClassStudent_D.ClassStudent.ClassStudent_Tel, new { }.ReadOnly(CloseALL))
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="column_title ">
+                                @*學生性別*@
+                                @Html.DisplayNameFor(x => x.ClassStudent_D.ClassStudent.ClassStudent_Sex)
+                            </td>
+                            <td class="column_search" colspan="5">
+                                @Html.RadioButtonFor(x => x.ClassStudent_D.ClassStudent.ClassStudent_Sex, "M", new { id = "ClassStudent_Sex1" }.Disabled(CloseALL))
+                                @Html.Label("ClassStudent_Sex1", "男")
+                                @Html.RadioButtonFor(x => x.ClassStudent_D.ClassStudent.ClassStudent_Sex, "F", new { id = "ClassStudent_Sex2" }.Disabled(CloseALL))
+                                @Html.Label("ClassStudent_Sex2", "女")
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="column_title ">
+                                @*學生地址*@
+                                @Html.DisplayNameFor(x => x.ClassStudent_D.ClassStudent.ClassStudent_Address)
+                            </td>
+                            <td class="column_search" colspan="5">
+                                @Html.TextBoxFor(x => x.ClassStudent_D.ClassStudent.ClassStudent_Address, new { }.ReadOnly(CloseALL))
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="column_title ">
+                                @*學生出生日期*@
+                                @Html.DisplayNameFor(x => x.ClassStudent_D.ClassStudent.ClassStudent_Birth)
+                            </td>
+                            <td class="column_search" colspan="5">
+                                @Html.TextBoxFor(x => x.ClassStudent_D.ClassStudent.ClassStudent_Birth, new { }.ReadOnly(CloseALL))
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        @*家長*@
+        <div class="panel-default">
+            <div>
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+                    <div class="panel-heading panel-heading-footer">
+                        <h4 class="panel-title float-left panel-title-havebtn">家長資料</h4>
+                        <input type="button" class="float-left btn-I" value="新增家長資料" name="LIST_ADD" @DisabledTag>
+                    </div>
+                </a>
+            </div>
+            <div id="collapse3" class="panel-collapse collapse in">
+                <table class="table_common RowTable" rules="all" id="@Table_Id">
+                    <thead>
+                        <tr id="TableTitle">
+                            <th>家長姓名</th>
+                            <th>家長電話</th>
+                            <th>家長地址</th>
+                            <th>家長出生日期</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null)
+                        {
+                            if (Model.ClassStudent_D != null)
+                            {
+                                if (Model.ClassStudent_D.ClassStudentParentsList != null && Model.ClassStudent_D.ClassStudentParentsList.Any())
+                                {
+                                    var i = 0;
+                                    foreach (var Rows in Model.ClassStudent_D.ClassStudentParentsList)
+                                    {
+                                        <tr data-no="@i">
+                                            @Html.Partial("_Class_Tab2_ListEdit", Rows, new ViewDataDictionary { { "i", i }, { "Action_Type", Model.ClassStudent_D.Action_Type } })
+                                        </tr>
+                                        i++;
+                                    }
+                                }
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+</div>
+
+
+<!--按鈕列-->
+<script id="BTN_BAR" type="text/html">
+    <div class="panel-default">
+        <div class="panel-heading panel-heading-footer">
+            <button data-function-btn name="@{@Action_Type.Select}" type="button" class="btn-R" style="display: none" disabled>瀏覽</button>
+            <button data-function-btn name="@{@Action_Type.Insert}" type="button" class="btn-I" onclick="SDetail('', '@Action_Type.Insert')" style="display: none" disabled>新增</button>
+            <button data-function-btn name="Confirm_@{@Action_Type.Insert}" type="button" class="btn-I" onclick="SAVE(this)">確定新增</button>
+            <button data-function-btn name="@{@Action_Type.Update}" type="button" class="btn-E" onclick="SDetail('', '@Action_Type.Update')" style="display: none" disabled>修改</button>
+            <button data-function-btn name="Confirm_@{@Action_Type.Update}" type="button" class="btn-E" onclick="SAVE(this)" style="display: none" disabled>確定修改</button>
+            <button data-function-btn name="@{@Action_Type.Stop}" type="button" class="btn-D" onclick="DELETE(this)" style="display: none" disabled>刪除</button>
+            <button data-function-btn name="@{@Action_Type.Cancel}" type="submit" class="btn-C" onclick="SDetail('', '@Action_Type.Select')" style="display: none" disabled>取消</button>
+        </div>
+    </div>
+</script>
+
+<script>
+    $("#@{@FORMID}").prepend($("#BTN_BAR").html());
+    $(function () {
+        AccordionEvt('@FORMID');
+    });
+</script>
+
+
+
+@{
+    switch (Model.ClassStudent_D.Action_Type)
+    {
+        case Action_Type.Select:
+            <script>
+                    $("[data-function-btn]").attr('disabled', false);
+                    $("[data-function-btn]").attr('style', 'display: ');
+                    $("[name=@{@Action_Type.Cancel}]").attr('disabled', true);
+                    $("[name=Confirm_@{@Action_Type.Insert}], [name=Confirm_@{@Action_Type.Update}]").attr('style', 'display: none');
+                    $("[name=LIST_ADD]").attr('disabled', true);
+                    $("a[data-toggle*=LIST_LABEL]").attr('style', 'display: none');
+            </script>
+            break;
+
+        case Action_Type.Insert:
+            <script>
+                    $("[data-function-btn]").attr('disabled', true);
+                    $("[data-function-btn]").attr('style', 'display: none');
+                    $("[name=Confirm_@{@Action_Type.Insert}]").attr('disabled', false);
+                    $("[name=Confirm_@{@Action_Type.Insert}]").attr('style', 'display: ');
+                    $("[name=LIST_ADD]").attr('disabled', false);
+                    $("a[data-toggle*=LIST_LABEL]").attr('style', 'display: ');
+                    if ($("#SelectedID").val() != "") {
+                        $("[name=@{@Action_Type.Cancel}]").attr('disabled', false);
+                        $("[name=@{@Action_Type.Cancel}]").attr('style', 'display: ');
+                    }
+            </script>
+            break;
+
+        case Action_Type.Update:
+            <script>
+                    $("[data-function-btn]").attr('disabled', true);
+                    $("[data-function-btn]").attr('style', 'display: none');
+                    $("[name=Confirm_@{@Action_Type.Update}], [name=@{@Action_Type.Cancel}], [name=@{@Action_Type.Other}]").attr('disabled', false);
+                    $("[name=Confirm_@{@Action_Type.Update}], [name=@{@Action_Type.Cancel}], [name=@{@Action_Type.Other}]").attr('style', 'display: ');
+                    $("[name=LIST_ADD]").attr('disabled', false);
+                    $("a[data-toggle*=LIST_LABEL]").attr('style', 'display: ');
+            </script>
+            break;
+
+        default:
+            break;
+    }
+}
+

@@ -1,0 +1,61 @@
+﻿@using Common
+@model MVCLearn.ViewModels.ClassStudentParents
+
+@{
+    var iux = Convert.ToInt32(ViewData["i"].ToString());
+    var Action_Type = (Action_Type)ViewData["Action_Type"];
+
+    <td class="text-center" data-list-content style="display:none">
+        <span name="ClassStudent[@iux].ClassStudent_ClassTeacher_ID" style="display:none">
+            @Html.TextBoxFor(x => x.ClassStudentParents_ID)
+        </span>
+    </td>
+
+    @*家長姓名*@
+    <td class="text-center" data-list-content>
+        <span data-toggle="LIST_LABEL[@iux]" data-label="ClassStudentParents[@iux].ClassStudentParents_Name">
+            @Model.ClassStudentParents_Name
+        </span>
+        <span data-toggle="LIST_EDIT[@iux]" name="ClassStudentParents[@iux].ClassStudentParents_Name" style="display:none">
+            @Html.TextBoxFor(x => x.ClassStudentParents_Name)
+        </span>
+    </td>
+
+    @*家長電話*@
+    <td class="text-center" data-list-content>
+        <span data-toggle="LIST_LABEL[@iux]" data-label="ClassStudentParents[@iux].ClassStudentParents_Tel">
+            @Model.ClassStudentParents_Tel
+        </span>
+        <span data-toggle="LIST_EDIT[@iux]" name="ClassStudentParents[@iux].ClassStudentParents_Tel" style="display:none">
+            @Html.TextBoxFor(x => x.ClassStudentParents_Tel)
+        </span>
+    </td>
+
+    @*家長地址*@
+    <td class="text-center" data-list-content>
+        <span data-toggle="LIST_LABEL[@iux]" data-label="ClassStudentParents[@iux].ClassStudentParents_Address">
+            @Model.ClassStudentParents_Address
+        </span>
+        <span data-toggle="LIST_EDIT[@iux]" name="ClassStudentParents[@iux].ClassStudentParents_Address" style="display:none">
+            @Html.TextBoxFor(x => x.ClassStudentParents_Address)
+        </span>
+    </td>
+
+    @*家長出生日期*@
+    <td class="text-center" data-list-content>
+        <span data-toggle="LIST_LABEL[@iux]" data-label="ClassStudentParents[@iux].ClassStudentParents_Birth">
+            @Model.ClassStudentParents_Birth
+        </span>
+        <span data-toggle="LIST_EDIT[@iux]" name="ClassStudentParents[@iux].ClassStudentParents_Birth" style="display:none">
+            @Html.TextBoxFor(x => x.ClassStudentParents_Birth)
+        </span>
+    </td>
+
+    <td class="text-center">
+        <a data-toggle="LIST_LABEL[@iux]" onclick="LIST_EDIT('@iux')">編輯</a>
+        <a data-toggle="LIST_LABEL[@iux]" onclick="LIST_DEL('@iux')">刪除</a>
+        <a data-toggle="LIST_EDIT[@iux]" onclick="LIST_UPD('@iux')" style="display:none">更新</a>
+        <a data-toggle="LIST_EDIT[@iux]" onclick="LIST_CANCEL('@iux')" id="LIST_CANCEL_@iux" data-add="false" style="display:none">取消</a>
+    </td>
+}
+

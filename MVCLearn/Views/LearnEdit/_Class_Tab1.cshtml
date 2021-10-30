@@ -1,0 +1,53 @@
+﻿@model MVCLearn.ViewModels.EditClassViewModel
+
+<!-- #region 導師資訊 -->
+
+<div style="text-align:center">
+    <div>
+        @Html.DisplayNameFor(x => x.ClassTeacher.ClassTeacher_ID)
+        @Model.ClassTeacher.ClassTeacher_ID
+    </div>
+    <div>
+        @Html.DisplayNameFor(x => x.ClassTeacher.ClassTeacher_Name)
+        @Model.ClassTeacher.ClassTeacher_Name
+    </div>
+    <div>
+        @Html.DisplayNameFor(x => x.ClassTeacher.ClassTeacher_Tel)
+        @Model.ClassTeacher.ClassTeacher_Tel
+    </div>
+</div>
+
+<!-- #endregion -->
+
+<!-- #region 學生清單 -->
+
+<input id="SelectedID" type="hidden" />
+@Html.Partial("_Class_Tab1_Q", Model.ClassStudentList)
+
+<!-- #endregion -->
+
+
+<script>
+    function SDetail(id, type) {
+        if ($.trim(id) != "") {
+            $("#SelectedID").val(id);
+        }
+
+        $data = {
+            "classStudent_ID": $("#SelectedID").val(),
+            "action_Type": type
+        }
+
+        $.ajax({
+            url: '@Url.Action("GetClassStudent_D", "LearnEdit")',
+            type: "POST",
+            async: false,
+            data: $data,
+            cache: false, //防止ie8一直取到舊資料的話，請設定為false
+            success: function (data, status, xhr) {
+                $('a[href="#tab2"]').tab('show');
+                $("#tab2").html(data);
+            }
+        });
+    }
+</script>

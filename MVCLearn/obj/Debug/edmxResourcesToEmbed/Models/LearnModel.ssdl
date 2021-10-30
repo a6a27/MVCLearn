@@ -4,37 +4,69 @@
     <Key>
       <PropertyRef Name="ClassStudent_ID" />
     </Key>
-    <Property Name="ClassStudent_ID" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ClassStudent_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ClassStudent_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="ClassStudent_Tel" Type="nvarchar" MaxLength="50" />
-    <Property Name="ClassStudent_ClassTeacher" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ClassStudent_ClassTeacher_ID" Type="int" />
+    <Property Name="ClassStudent_Sex" Type="nvarchar" MaxLength="1" Nullable="false" />
+    <Property Name="ClassStudent_Address" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="ClassStudent_Birth" Type="date" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ClassStudentParents">
+    <Key>
+      <PropertyRef Name="ClassStudentParents_ID" />
+    </Key>
+    <Property Name="ClassStudentParents_ID" Type="int" Nullable="false" />
+    <Property Name="ClassStudentParents_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ClassStudentParents_Tel" Type="nvarchar" MaxLength="50" />
+    <Property Name="ClassStudentParents_ClassStudent_ID" Type="int" Nullable="false" />
+    <Property Name="ClassStudentParents_Sex" Type="nvarchar" MaxLength="1" Nullable="false" />
+    <Property Name="ClassStudentParents_Address" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="ClassStudentParents_Birth" Type="date" Nullable="false" />
   </EntityType>
   <EntityType Name="ClassTeacher">
     <Key>
       <PropertyRef Name="ClassTeacher_ID" />
     </Key>
-    <Property Name="ClassTeacher_ID" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ClassTeacher_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ClassTeacher_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="ClassTeacher_Tel" Type="nvarchar" MaxLength="50" />
   </EntityType>
   <Association Name="FK_ClassStudent_ClassTeacher">
-    <End Role="ClassTeacher" Type="Self.ClassTeacher" Multiplicity="1" />
+    <End Role="ClassTeacher" Type="Self.ClassTeacher" Multiplicity="0..1" />
     <End Role="ClassStudent" Type="Self.ClassStudent" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="ClassTeacher">
         <PropertyRef Name="ClassTeacher_ID" />
       </Principal>
       <Dependent Role="ClassStudent">
-        <PropertyRef Name="ClassStudent_ClassTeacher" />
+        <PropertyRef Name="ClassStudent_ClassTeacher_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ClassStudentParents_ClassStudent">
+    <End Role="ClassStudent" Type="Self.ClassStudent" Multiplicity="1" />
+    <End Role="ClassStudentParents" Type="Self.ClassStudentParents" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ClassStudent">
+        <PropertyRef Name="ClassStudent_ID" />
+      </Principal>
+      <Dependent Role="ClassStudentParents">
+        <PropertyRef Name="ClassStudentParents_ClassStudent_ID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="LearnModelStoreContainer">
     <EntitySet Name="ClassStudent" EntityType="Self.ClassStudent" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ClassStudentParents" EntityType="Self.ClassStudentParents" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ClassTeacher" EntityType="Self.ClassTeacher" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_ClassStudent_ClassTeacher" Association="Self.FK_ClassStudent_ClassTeacher">
       <End Role="ClassTeacher" EntitySet="ClassTeacher" />
       <End Role="ClassStudent" EntitySet="ClassStudent" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ClassStudentParents_ClassStudent" Association="Self.FK_ClassStudentParents_ClassStudent">
+      <End Role="ClassStudent" EntitySet="ClassStudent" />
+      <End Role="ClassStudentParents" EntitySet="ClassStudentParents" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

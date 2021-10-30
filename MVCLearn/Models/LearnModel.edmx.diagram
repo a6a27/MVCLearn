@@ -5,9 +5,11 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="927e7c592b014c09961ef5e7c9c5a1b9" Name="Diagram1">
-        <EntityTypeShape EntityType="LearnModel.ClassStudent" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="LearnModel.ClassTeacher" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
-        <AssociationConnector Association="LearnModel.FK_ClassStudent_ClassTeacher" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="LearnModel.ClassStudent" Width="1.5" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="LearnModel.ClassStudentParents" Width="1.5" PointX="5.25" PointY="1" />
+        <EntityTypeShape EntityType="LearnModel.ClassTeacher" Width="1.5" PointX="0.75" PointY="1.375" />
+        <AssociationConnector Association="LearnModel.FK_ClassStudent_ClassTeacher" />
+        <AssociationConnector Association="LearnModel.FK_ClassStudentParents_ClassStudent" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

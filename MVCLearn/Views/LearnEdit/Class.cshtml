@@ -1,0 +1,40 @@
+﻿@model MVCLearn.ViewModels.EditClassViewModel
+@using Common
+
+<div id="page-wrapper" class="gray-bg">
+    <div class="wrapper wrapper-content" id="QueryView">
+        <div class="row animated fadeInRight">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h2 id="title" class="ibox-title-name">三年A班</h2>
+                    </div>
+                    <div class="ibox-content">
+                        <div>
+                            <ul class="nav nav-tabs bookmark-bottom-line">
+                                <li class="active">
+                                    <a href="#tab1" data-toggle="tab" data-id="tab1">班級學生查詢</a>
+                                </li>
+                                <li>
+                                    <a href="#tab2" data-toggle="tab" data-id="tab2">班級學生維護</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tab-content" id="tab-content">
+                            <div class="tab-pane active" id="tab1">
+                                <div class="tab-pane active">
+                                    @Html.Partial("_Class_Tab1")
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="tab2">
+                                <div class="tab-pane">
+                                    @Html.Partial("_Class_Tab2")
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

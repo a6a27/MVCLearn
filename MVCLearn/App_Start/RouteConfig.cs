@@ -16,7 +16,7 @@ namespace MVCLearn
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Learn", action = "Class", id = UrlParameter.Optional }
+                defaults: new { controller = "LearnEdit", action = "Class", id = UrlParameter.Optional }
             );
         }
     }

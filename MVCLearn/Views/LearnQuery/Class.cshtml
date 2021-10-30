@@ -1,0 +1,30 @@
+﻿@model MVCLearn.ViewModels.QueryClassViewModel
+@{
+    ViewBag.Title = "班級";
+}
+<h2>三年A班</h2>
+
+<!-- #region 導師資訊 -->
+
+<div style="text-align:center">
+    <div>
+        @Html.DisplayNameFor(x => x.ClassTeacher.ClassTeacher_ID)
+        @Model.ClassTeacher.ClassTeacher_ID
+    </div>
+    <div>
+        @Html.DisplayNameFor(x => x.ClassTeacher.ClassTeacher_Name)
+        @Model.ClassTeacher.ClassTeacher_Name
+    </div>
+    <div>
+        @Html.DisplayNameFor(x => x.ClassTeacher.ClassTeacher_Tel)
+        @Model.ClassTeacher.ClassTeacher_Tel
+    </div>
+</div>
+
+<!-- #endregion -->
+
+<!-- #region 學生資訊 -->
+
+@Html.Partial("_ClassStdent", Model.ClassStudentList)
+
+<!-- #endregion -->

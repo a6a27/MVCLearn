@@ -186,3 +186,5 @@ C:\Users\a6a27R9\source\repos\練習\MVCLearn\MVCLearn\obj\Debug\MVCLearn.csproj
 C:\Users\a6a27R9\source\repos\練習\MVCLearn\MVCLearn\obj\Debug\MVCLearn.csproj.CopyComplete
 C:\Users\a6a27R9\source\repos\練習\MVCLearn\MVCLearn\obj\Debug\MVCLearn.dll
 C:\Users\a6a27R9\source\repos\練習\MVCLearn\MVCLearn\obj\Debug\MVCLearn.pdb
+C:\Users\a6a27R9\source\repos\練習\MVCLearn\MVCLearn\bin\Common.dll
+C:\Users\a6a27R9\source\repos\練習\MVCLearn\MVCLearn\bin\Common.pdb

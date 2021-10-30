@@ -4,19 +4,35 @@
     <EntitySetMapping Name="ClassStudent">
       <EntityTypeMapping TypeName="LearnModel.ClassStudent">
         <MappingFragment StoreEntitySet="ClassStudent">
-          <ScalarProperty Name="ClassStudent_ID" ColumnName="ClassStudent_ID" />
-          <ScalarProperty Name="ClassStudent_Name" ColumnName="ClassStudent_Name" />
+          <ScalarProperty Name="ClassStudent_Birth" ColumnName="ClassStudent_Birth" />
+          <ScalarProperty Name="ClassStudent_Address" ColumnName="ClassStudent_Address" />
+          <ScalarProperty Name="ClassStudent_Sex" ColumnName="ClassStudent_Sex" />
+          <ScalarProperty Name="ClassStudent_ClassTeacher_ID" ColumnName="ClassStudent_ClassTeacher_ID" />
           <ScalarProperty Name="ClassStudent_Tel" ColumnName="ClassStudent_Tel" />
-          <ScalarProperty Name="ClassStudent_ClassTeacher" ColumnName="ClassStudent_ClassTeacher" />
+          <ScalarProperty Name="ClassStudent_Name" ColumnName="ClassStudent_Name" />
+          <ScalarProperty Name="ClassStudent_ID" ColumnName="ClassStudent_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ClassStudentParents">
+      <EntityTypeMapping TypeName="LearnModel.ClassStudentParents">
+        <MappingFragment StoreEntitySet="ClassStudentParents">
+          <ScalarProperty Name="ClassStudentParents_Birth" ColumnName="ClassStudentParents_Birth" />
+          <ScalarProperty Name="ClassStudentParents_Address" ColumnName="ClassStudentParents_Address" />
+          <ScalarProperty Name="ClassStudentParents_Sex" ColumnName="ClassStudentParents_Sex" />
+          <ScalarProperty Name="ClassStudentParents_ClassStudent_ID" ColumnName="ClassStudentParents_ClassStudent_ID" />
+          <ScalarProperty Name="ClassStudentParents_Tel" ColumnName="ClassStudentParents_Tel" />
+          <ScalarProperty Name="ClassStudentParents_Name" ColumnName="ClassStudentParents_Name" />
+          <ScalarProperty Name="ClassStudentParents_ID" ColumnName="ClassStudentParents_ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="ClassTeacher">
       <EntityTypeMapping TypeName="LearnModel.ClassTeacher">
         <MappingFragment StoreEntitySet="ClassTeacher">
-          <ScalarProperty Name="ClassTeacher_ID" ColumnName="ClassTeacher_ID" />
-          <ScalarProperty Name="ClassTeacher_Name" ColumnName="ClassTeacher_Name" />
           <ScalarProperty Name="ClassTeacher_Tel" ColumnName="ClassTeacher_Tel" />
+          <ScalarProperty Name="ClassTeacher_Name" ColumnName="ClassTeacher_Name" />
+          <ScalarProperty Name="ClassTeacher_ID" ColumnName="ClassTeacher_ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

@@ -20,7 +20,7 @@ namespace MVCLearn.Models
             this.ClassStudent = new HashSet<ClassStudent>();
         }
     
-        public string ClassTeacher_ID { get; set; }
+        public int ClassTeacher_ID { get; set; }
         public string ClassTeacher_Name { get; set; }
         public string ClassTeacher_Tel { get; set; }
     

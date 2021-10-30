@@ -1,0 +1,6 @@
+C:\Users\a6a27R9\source\repos\練習\MVCLearn\Common\bin\Debug\Common.dll
+C:\Users\a6a27R9\source\repos\練習\MVCLearn\Common\bin\Debug\Common.pdb
+C:\Users\a6a27R9\source\repos\練習\MVCLearn\Common\obj\Debug\Common.csprojAssemblyReference.cache
+C:\Users\a6a27R9\source\repos\練習\MVCLearn\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+C:\Users\a6a27R9\source\repos\練習\MVCLearn\Common\obj\Debug\Common.dll
+C:\Users\a6a27R9\source\repos\練習\MVCLearn\Common\obj\Debug\Common.pdb
