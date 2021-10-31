@@ -31,7 +31,7 @@
     <Key>
       <PropertyRef Name="ClassStudentParents_ID" />
     </Key>
-    <Property Name="ClassStudentParents_ID" Type="Int32" Nullable="false" />
+    <Property Name="ClassStudentParents_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="ClassStudentParents_Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="ClassStudentParents_Tel" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <Property Name="ClassStudentParents_ClassStudent_ID" Type="Int32" Nullable="false" />

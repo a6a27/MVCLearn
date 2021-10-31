@@ -5,8 +5,8 @@ function Common_List_Edit(i, type) {
     $("[name='Confirm_" + type + "']").prop("disabled", true);
     $("a[data-toggle*='LIST_LABEL']").prop('onclick', null);
     $("[name='LIST_ADD']").prop('disabled', true);
-    Initial_Select2();
-    Initial_InputMask();
+    //Initial_Select2();
+    //Initial_InputMask();
 }
 
 //Add by 奇緯 20210630 明細－新增
@@ -134,4 +134,123 @@ function AccordionEvt(FORMID) {
             return false;
         }
     });
+}
+
+//Add by 妤瑄 20210530 因為disabled時後端收不到disabled的值，所以這邊在送出前把被disabled的物件長出一個分身(hidden)這樣後端就可以取得到分身的值
+function BeforeSubmit_BuildHidden(form) {
+    $(form).find('*:disabled').each(function (i, item) {
+        var Obj_Name = $(this).attr("name");
+        var Obj_Hidden = $("input:hidden[name='" + Obj_Name + "']");
+        var SelectedVal = "";
+        if ($(this).attr("type") == "radio") {
+            SelectedVal = $("[name='" + Obj_Name + "']:checked").val();
+        }
+        else {
+            SelectedVal = $(this).val();
+        }
+
+        //找不到hidden時，就產生一個hidden
+        if (Obj_Hidden.length > 0) {
+            $(Obj_Hidden).remove();
+        }
+        $("<input/>").attr("name", Obj_Name).attr("type", "hidden").val(SelectedVal).appendTo($(form));
+    });
+}
+
+//Mod by 奇緯 20210608 將Table的List逐一產生hidden
+function BeforeSubmit_BuildHidden_List(table_Id, form) {
+    $("#" + table_Id + " tbody").find("tr").each(function (i) {
+        var $obj = $(this);
+        $obj.find("td[data-type='content']").each(function () {
+            var New_Num = "[" + i + "]";
+            //Mod by 奇緯 20210806 如果一個td裡面有複數欄位 例如：幣別+金額 也會一起處理成hidden
+            var list = $(this).find("select,input,radio,label").parent();
+            list.each(function () {
+                var Parent_Name = $(this).attr("name");
+                var Obj_Name = Parent_Name.replace(/\[[0-9]+\]/, New_Num);
+                var Obj_Val = $(this).find("select,input[type=text],input[type=number],input[type=radio]:checked").val();
+                Get_Each_Val(Obj_Name, Obj_Val, form);
+            });
+        });
+    });
+}
+
+//逐項取值
+function Get_Each_Val(Obj_Name, Obj_Val, form) {
+    var Obj_Hidden = $("input:hidden[name='" + Obj_Name + "']");
+    //若畫面上已有hidden則先清除，以確保建出來的hidden是最新的
+    if (Obj_Hidden.length > 0) {
+        Obj_Hidden.remove();
+    }
+    $("<input/>").attr("name", Obj_Name).attr("type", "hidden").val(Obj_Val).appendTo($(form));
+}
+
+//<!--- 當動作成功時，顯示成功動作內容 --->
+//mod by 志豪 20200121 加上內容 如果有內容則跳出確認框等對方確認
+function SuccessAlert(message, desc) {
+    $.unblockUI();
+    //Mod By 妤瑄 20170417 修改Client_Potential_XSS
+    var regex = /(<([^>]+)>)/ig
+        , body = message
+        , message = body.replace(regex, "");
+    if (desc != null || desc != "") {
+        swal({
+            title: message,
+            text: desc,
+            type: "success",
+            confirmButtonText: "確定",
+        });
+    }
+    else {
+        swal({
+            title: message,
+            type: "success",
+            timer: 2000,
+            showConfirmButton: false
+        });
+    }
+}
+
+//顯是錯誤訊息 Create By John
+function ShowErrorMessage(error) {
+    $.unblockUI();
+    $.each(error, function (keys, value) {
+        var span = 'span[data-valmsg-for="' + keys + '"]';
+        if (keys == "") {
+            span = 'span[data-valmsg-for="errorMessage"]';
+            value.forEach(function (item) {
+                $(span).append(item + "</br>");
+            });
+
+        } else {
+            $(span).html(value);
+        }
+    })
+}
+
+//<!--- 顯示警示視窗 --->
+function InfoAlert(message) {
+    $.unblockUI();
+
+    //Mod By 妤瑄 20170417 修改Client_Potential_XSS
+    var regex = /(<([^>]+)>)/ig
+        , body = message
+        , message = body.replace(regex, "");
+
+    if (message.indexOf("查無資料") > -1) {
+        swal({
+            title: "",
+            text: message,
+            type: "info",
+            confirmButtonText: "確定",
+        });
+    }
+    else {
+        swal({
+            title: "請確認以下內容：",
+            text: message + "\n請重新調整資料內容。",
+            type: "info",
+            confirmButtonText: "確定",
+        });
+    }
 }

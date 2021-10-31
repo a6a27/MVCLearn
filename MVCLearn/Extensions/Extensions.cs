@@ -39,5 +39,15 @@ namespace MVCLearn.Extensions
 
             return mapper.Map<IEnumerable<TDestination>>(source);
         }
-    }
+
+        ///// <summary>
+        ///// Mod by 奇緯 20211031 
+        ///// </summary>
+        ///// <typeparam name="TEntity"></typeparam>
+        ///// <param name="set"></param>
+        ///// <param name="entities"></param>
+        //public static void AddOrUpdateList<TEntity>(this System.Data.Entity.IDbSet<TEntity> set, params TEntity[] entities) where TEntity : class
+        //{
+        //}
+    }   
 }

@@ -16,7 +16,7 @@
     <Key>
       <PropertyRef Name="ClassStudentParents_ID" />
     </Key>
-    <Property Name="ClassStudentParents_ID" Type="int" Nullable="false" />
+    <Property Name="ClassStudentParents_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="ClassStudentParents_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="ClassStudentParents_Tel" Type="nvarchar" MaxLength="50" />
     <Property Name="ClassStudentParents_ClassStudent_ID" Type="int" Nullable="false" />

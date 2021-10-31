@@ -5,48 +5,58 @@
     var iux = Convert.ToInt32(ViewData["i"].ToString());
     var Action_Type = (Action_Type)ViewData["Action_Type"];
 
-    <td class="text-center" data-list-content style="display:none">
-        <span name="ClassStudent[@iux].ClassStudent_ClassTeacher_ID" style="display:none">
+    <td class="text-center" data-type="content" style="display:none">
+        <span name="ClassStudent_D.ClassStudentParentsList[@iux].ClassStudentParents_ID" style="display:none">
             @Html.TextBoxFor(x => x.ClassStudentParents_ID)
         </span>
     </td>
 
     @*家長姓名*@
-    <td class="text-center" data-list-content>
-        <span data-toggle="LIST_LABEL[@iux]" data-label="ClassStudentParents[@iux].ClassStudentParents_Name">
+    <td class="text-center" data-type="content">
+        <span data-toggle="LIST_LABEL[@iux]" data-label="ClassStudent_D.ClassStudentParentsList[@iux].ClassStudentParents_Name">
             @Model.ClassStudentParents_Name
         </span>
-        <span data-toggle="LIST_EDIT[@iux]" name="ClassStudentParents[@iux].ClassStudentParents_Name" style="display:none">
+        <span data-toggle="LIST_EDIT[@iux]" name="ClassStudent_D.ClassStudentParentsList[@iux].ClassStudentParents_Name" style="display:none">
             @Html.TextBoxFor(x => x.ClassStudentParents_Name)
         </span>
     </td>
 
     @*家長電話*@
-    <td class="text-center" data-list-content>
-        <span data-toggle="LIST_LABEL[@iux]" data-label="ClassStudentParents[@iux].ClassStudentParents_Tel">
+    <td class="text-center" data-type="content">
+        <span data-toggle="LIST_LABEL[@iux]" data-label="ClassStudent_D.ClassStudentParentsList[@iux].ClassStudentParents_Tel">
             @Model.ClassStudentParents_Tel
         </span>
-        <span data-toggle="LIST_EDIT[@iux]" name="ClassStudentParents[@iux].ClassStudentParents_Tel" style="display:none">
+        <span data-toggle="LIST_EDIT[@iux]" name="ClassStudent_D.ClassStudentParentsList[@iux].ClassStudentParents_Tel" style="display:none">
             @Html.TextBoxFor(x => x.ClassStudentParents_Tel)
         </span>
     </td>
 
     @*家長地址*@
-    <td class="text-center" data-list-content>
-        <span data-toggle="LIST_LABEL[@iux]" data-label="ClassStudentParents[@iux].ClassStudentParents_Address">
+    <td class="text-center" data-type="content">
+        <span data-toggle="LIST_LABEL[@iux]" data-label="ClassStudent_D.ClassStudentParentsList[@iux].ClassStudentParents_Address">
             @Model.ClassStudentParents_Address
         </span>
-        <span data-toggle="LIST_EDIT[@iux]" name="ClassStudentParents[@iux].ClassStudentParents_Address" style="display:none">
+        <span data-toggle="LIST_EDIT[@iux]" name="ClassStudent_D.ClassStudentParentsList[@iux].ClassStudentParents_Address" style="display:none">
             @Html.TextBoxFor(x => x.ClassStudentParents_Address)
         </span>
     </td>
 
+    @*家長性別*@
+    <td class="text-center" data-type="content">
+        <span data-toggle="LIST_LABEL[@iux]" data-label="ClassStudent_D.ClassStudentParentsList[@iux].ClassStudentParents_Sex">
+            @Model.ClassStudentParents_Sex
+        </span>
+        <span data-toggle="LIST_EDIT[@iux]" name="ClassStudent_D.ClassStudentParentsList[@iux].ClassStudentParents_Sex" style="display:none">
+            @Html.TextBoxFor(x => x.ClassStudentParents_Sex)
+        </span>
+    </td>
+
     @*家長出生日期*@
-    <td class="text-center" data-list-content>
-        <span data-toggle="LIST_LABEL[@iux]" data-label="ClassStudentParents[@iux].ClassStudentParents_Birth">
+    <td class="text-center" data-type="content">
+        <span data-toggle="LIST_LABEL[@iux]" data-label="ClassStudent_D.ClassStudentParentsList[@iux].ClassStudentParents_Birth">
             @Model.ClassStudentParents_Birth
         </span>
-        <span data-toggle="LIST_EDIT[@iux]" name="ClassStudentParents[@iux].ClassStudentParents_Birth" style="display:none">
+        <span data-toggle="LIST_EDIT[@iux]" name="ClassStudent_D.ClassStudentParentsList[@iux].ClassStudentParents_Birth" style="display:none">
             @Html.TextBoxFor(x => x.ClassStudentParents_Birth)
         </span>
     </td>

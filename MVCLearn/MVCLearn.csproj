@@ -133,6 +133,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LearnEditController.cs" />
+    <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Extensions\RouteValueDictionaryExtensions.cs" />
     <Compile Include="Extensions\Extensions.cs" />
     <Compile Include="Global.asax.cs">
@@ -170,6 +171,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\sweetalert.css" />
     <Content Include="Content\style_custom.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -192,6 +194,7 @@
     <Content Include="Models\LearnModel.edmx.diagram">
       <DependentUpon>LearnModel.edmx</DependentUpon>
     </Content>
+    <Content Include="Scripts\jquery.blockUI.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\CustomJs\Common.js" />
@@ -215,6 +218,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\sweetalert.min.js" />
     <Content Include="Views\LearnEdit\_Class_Tab1.cshtml" />
     <Content Include="Views\LearnEdit\_Class_Tab1_Q.cshtml" />
     <Content Include="Web.config" />

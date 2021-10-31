@@ -9,7 +9,9 @@ namespace MVCLearn
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js",
+                         "~/Scripts/jquery-{version}.js",
+                         "~/Scripts/jquery.blockUI.js",
+                         "~/Scripts/sweetalert.min.js",
                          "~/Scripts/CustomJs/Common.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
@@ -29,6 +31,7 @@ namespace MVCLearn
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/sweetalert.css",
                       "~/Content/site.css",
                       "~/Content/style_custom.css"));
         }

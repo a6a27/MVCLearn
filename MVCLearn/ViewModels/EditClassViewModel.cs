@@ -81,6 +81,9 @@ namespace MVCLearn.ViewModels
         [DisplayName("家長地址")]
         public string ClassStudentParents_Address { get; set; }
 
+        [DisplayName("家長性別")]
+        public string ClassStudentParents_Sex { get; set; }
+
         [DisplayName("家長出生日期")]
         public DateTime ClassStudentParents_Birth { get; set; }
 

@@ -1,8 +1,8 @@
-﻿@using Common
-@model MVCLearn.ViewModels.EditClassViewModel
-
+﻿@model MVCLearn.ViewModels.EditClassViewModel
+@using Common
+@using MVCLearn.ViewModels
 @{
-    var FORMID = "Class_Tab2_List_Table";
+    var FORMID = "Class_D";
     var Table_Id = "Class_Tab2_List_Table";
     var CloseALL = true;
     var DisabledTag = "disabled";
@@ -19,12 +19,13 @@
 }
 
 <div id="tab2_content" class="ibox float-e-margins" style="padding: 5px 0px 0px 0px;">
-    @using (Ajax.BeginForm("Index", "LearnEdit", null,
+    @using (Ajax.BeginForm("", "", null,
 new AjaxOptions { UpdateTargetId = "tab2", HttpMethod = "Post" },
 new { ID = FORMID }))
     {
         @Html.HiddenFor(x => x.ClassStudent_D.Action_Type)
         @Html.HiddenFor(x => x.ClassStudent_D.ClassStudent.ClassStudent_ID)
+        @Html.Hidden("ClassStudent_D.ClassStudent.ClassStudent_ClassTeacher_ID",1)//這邊是範例所以固定寫死1
         <div class="panel-default">
             <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse2">
                 <div class="panel-heading panel-heading-footer">
@@ -40,7 +41,7 @@ new { ID = FORMID }))
                                 @Html.DisplayNameFor(x => x.ClassStudent_D.ClassStudent.ClassStudent_ID)
                             </td>
                             <td class="column_search" colspan="5">
-                                @Html.TextBoxFor(x => x.ClassStudent_D.ClassStudent.ClassStudent_ID, new { }.ReadOnly(CloseALL))
+                                @Html.TextBoxFor(x => x.ClassStudent_D.ClassStudent.ClassStudent_ID, new { }.ReadOnly(true))
                             </td>
                         </tr>
                         <tr>
@@ -112,6 +113,7 @@ new { ID = FORMID }))
                             <th>家長姓名</th>
                             <th>家長電話</th>
                             <th>家長地址</th>
+                            <th>家長性別</th>
                             <th>家長出生日期</th>
                             <th></th>
                         </tr>
@@ -142,6 +144,12 @@ new { ID = FORMID }))
 </div>
 
 
+<script id="Template_D_LIST" type="text/html">
+    @{
+        @Html.Partial("_Class_Tab2_ListEdit", new ClassStudentParents(), new ViewDataDictionary { { "i", 999999 }, { "Action_Type", Model.ClassStudent_D.Action_Type } })
+    }
+</script>
+
 <!--按鈕列-->
 <script id="BTN_BAR" type="text/html">
     <div class="panel-default">
@@ -158,12 +166,109 @@ new { ID = FORMID }))
 </script>
 
 <script>
+
     $("#@{@FORMID}").prepend($("#BTN_BAR").html());
     $(function () {
         AccordionEvt('@FORMID');
     });
-</script>
 
+
+   //家長資料 部分編輯區塊相關語法
+
+    //#region 家長資料－編輯
+    function LIST_EDIT(i) {
+        Common_List_Edit(i, "@Model.ClassStudent_D.Action_Type");
+    }
+    //#endregion
+
+    //#region 家長資料－新增
+    $("[name=LIST_ADD]").click(function () {
+        Common_List_Add("@Table_Id");
+        return false;
+    });
+
+    //#region 家長資料－刪除
+    function LIST_DEL(i) {
+        Common_List_Del(i);
+    }
+    //#endregion
+
+    //#region 家長資料－更新
+    function LIST_UPD(i) {
+        Common_List_Upd("ClassStudentParentsList", i, "@Model.ClassStudent_D.Action_Type")
+    }
+    //#endregion
+
+    //#region 家長資料－取消
+    function LIST_CANCEL(i) {
+        Common_List_Cancel("ClassStudentParentsList", i, "@Model.ClassStudent_D.Action_Type");
+    }
+    //#endregion
+
+    function SAVE(obj) {
+        //確認刪除後，確認SWEETALERT是否有消失，再呼叫SAVE FUNCTION
+        if ($('div.sweet-alert:visible').length > 0) {
+            //若SweetAlert尚未完全消失，就再延遲執行後續的動作
+            setTimeout(SAVE, 50);
+            return;
+        }
+        $form = $("#@{@FORMID}");
+        //因為disabled時後端收不到disabled的值，所以這邊在送出前把被disabled的物件長出一個分身(hidden)這樣後端就可以取得到分身的值
+        BeforeSubmit_BuildHidden($form);
+        //逐項取值－取得Table_Id列表內的值 長出一個分身(hidden)這樣後端就可以取得到分身的值
+        BeforeSubmit_BuildHidden_List("@Table_Id" , $form);
+
+        var dataToPost = $form.serialize();
+        $.ajax({
+            url: '@Url.Action("ClassStudent_CRUD", "LearnEdit")',
+            type: "POST",
+            async: false,
+            data: dataToPost,
+            cache: false, //防止ie8一直取到舊資料的話，請設定為false
+            success: function (data, status, xhr) {
+                    if (data.Message.indexOf("成功") > -1) {
+                        if ($("[name$='Action_Type']").val() != '@{@Action_Type.Stop}') {
+                            SDetail(data.PKKEY, '@Action_Type.Select', false);
+                            $("[name=@{@Action_Type.Select}]:eq(0)").click();
+                        }
+                    else {
+                        $("[data-function-btn]").attr('disabled', true);
+                        $("[data-function-btn]").attr('style', 'display: none ');
+                        $("[name=@{@Action_Type.Select}]").attr('disabled', false);
+                        $("[name=@{@Action_Type.Select}]").attr('style', 'display: ');
+                        }
+                        SuccessAlert(data.Message, "");
+                    //只要有新增、修改、刪除 就把異動flag立起來，當切換到tab1時再依這個欄位判斷要不要刷新畫面
+                    $("#Refresh").val("1");
+                    }
+                    else {
+                        InfoAlert(data.Message);
+                    }
+            }
+        });
+    }
+
+    function DELETE(obj) {
+        swal({
+            title: "您確定要刪除嗎？",
+            text: "",
+            type: "info",
+            showCancelButton: true,
+            confirmButtonText: "是",
+            cancelButtonText: "否"
+        },
+        function (isConfirm) {
+            if (isConfirm) {
+                $("[name$='Action_Type']").val('@{@Action_Type.Stop}');
+                SAVE($(obj));
+            }
+            else {
+                return;
+            }
+        });
+    }
+
+</script>
 
 
 @{
