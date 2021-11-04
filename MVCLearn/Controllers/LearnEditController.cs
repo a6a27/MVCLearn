@@ -62,6 +62,44 @@ namespace MVCLearn.Controllers
         }
 
         /// <summary>
+        /// 班級學生搜尋
+        /// </summary>
+        /// <returns>View</returns>
+        public ActionResult ClassSearch(EditClassViewModel editClassViewModel)
+        {
+            editClassViewModel.ClassStudentList = GetClassSearch(editClassViewModel.ClassStudent_Q);
+            return PartialView("_Class_Tab1_Q", editClassViewModel.ClassStudentList);
+        }
+
+        /// <summary>
+        /// 取得班級學生搜尋清單
+        /// </summary>
+        /// <returns>清單</returns>
+        private List<ClassStudent> GetClassSearch(ClassStudent_Q classStudent_Q)
+        {
+            List<ClassStudent> classStudents = new List<ClassStudent>();
+            using (var db = new MVCLearn.Models.LearnEntities())
+            {
+
+                #region 學生清單
+    
+                classStudents = db.ClassStudent
+                                  .MapperToList<MVCLearn.Models.ClassStudent,
+                                                MVCLearn.ViewModels.ClassStudent>()
+                                  .ToList();
+                if (string.IsNullOrWhiteSpace(classStudent_Q.ClassStudent_Name) == false)
+                {
+                     classStudents = classStudents.Where(x => x.ClassStudent_Name == classStudent_Q.ClassStudent_Name).ToList();
+                }
+
+                #endregion
+
+            }
+
+            return classStudents;
+        }
+
+        /// <summary>
         /// 取得學生明細
         /// </summary>
         /// <returns>明細資料</returns>

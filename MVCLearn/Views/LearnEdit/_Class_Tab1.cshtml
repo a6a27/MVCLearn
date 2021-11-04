@@ -1,31 +1,47 @@
 ﻿@model MVCLearn.ViewModels.EditClassViewModel
 
-<!-- #region 導師資訊 -->
 
-<div style="text-align:center">
-    <div>
-        @Html.DisplayNameFor(x => x.ClassTeacher.ClassTeacher_ID)
-        @Model.ClassTeacher.ClassTeacher_ID
+@using (Ajax.BeginForm("ClassSearch", "LearnEdit", null,
+new AjaxOptions { UpdateTargetId = "div_Class_Tab1_Q", HttpMethod = "Post", OnSuccess = "" },
+new { ID = "ClassSearch" }))
+{
+    <!-- #region 搜尋區塊 -->
+
+    @Html.DisplayNameFor(x => x.ClassStudent_Q.ClassStudent_Name)
+    @Html.TextBoxFor(x => x.ClassStudent_Q.ClassStudent_Name)
+    <button type="submit">查詢</button>
+
+    <!-- #endregion -->
+
+    <!-- #region 導師資訊 -->
+
+    <div style="text-align:center">
+        <div>
+            @Html.DisplayNameFor(x => x.ClassTeacher.ClassTeacher_ID)
+            @Model.ClassTeacher.ClassTeacher_ID
+        </div>
+        <div>
+            @Html.DisplayNameFor(x => x.ClassTeacher.ClassTeacher_Name)
+            @Model.ClassTeacher.ClassTeacher_Name
+        </div>
+        <div>
+            @Html.DisplayNameFor(x => x.ClassTeacher.ClassTeacher_Tel)
+            @Model.ClassTeacher.ClassTeacher_Tel
+        </div>
     </div>
-    <div>
-        @Html.DisplayNameFor(x => x.ClassTeacher.ClassTeacher_Name)
-        @Model.ClassTeacher.ClassTeacher_Name
+
+    <!-- #endregion -->
+
+    <!-- #region 學生清單 -->
+
+    <input id="SelectedID" type="hidden" />
+    <div id="div_Class_Tab1_Q">
+        @Html.Partial("_Class_Tab1_Q", Model.ClassStudentList)
     </div>
-    <div>
-        @Html.DisplayNameFor(x => x.ClassTeacher.ClassTeacher_Tel)
-        @Model.ClassTeacher.ClassTeacher_Tel
-    </div>
-</div>
 
-<!-- #endregion -->
+    <!-- #endregion -->
 
-<!-- #region 學生清單 -->
-
-<input id="SelectedID" type="hidden" />
-@Html.Partial("_Class_Tab1_Q", Model.ClassStudentList)
-
-<!-- #endregion -->
-
+}
 
 <script>
     function SDetail(id, type) {

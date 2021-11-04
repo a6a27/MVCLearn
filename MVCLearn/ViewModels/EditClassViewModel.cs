@@ -17,6 +17,8 @@ namespace MVCLearn.ViewModels
         /// </summary>
         public ClassTeacher ClassTeacher { get; set; } = new ClassTeacher();
 
+        public ClassStudent_Q ClassStudent_Q { get; set; } = new ClassStudent_Q();
+
         /// <summary>
         /// 學生資訊 搜尋結果 清單
         /// </summary>
@@ -39,6 +41,15 @@ namespace MVCLearn.ViewModels
         public string ClassTeacher_Name { get; set; }
         [DisplayName("班導電話")]
         public string ClassTeacher_Tel { get; set; }
+    }
+
+    /// <summary>
+    /// 班級學生搜尋條件
+    /// </summary>
+    public class ClassStudent_Q
+    {
+        [DisplayName("學生姓名")]
+        public string ClassStudent_Name { get; set; }
     }
 
     /// <summary>
