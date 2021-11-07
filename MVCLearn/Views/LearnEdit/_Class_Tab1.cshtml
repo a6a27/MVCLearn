@@ -7,12 +7,15 @@ new { ID = "ClassSearch" }))
 {
     <!-- #region 搜尋區塊 -->
 
-    @Html.DisplayNameFor(x => x.ClassStudent_Q.ClassStudent_Name)
-    @Html.TextBoxFor(x => x.ClassStudent_Q.ClassStudent_Name)
-    <button type="submit">查詢</button>
+    <div class="panel-default">
+        <div class="panel-heading panel-heading-footer">
+            @Html.DisplayNameFor(x => x.ClassStudent_Q.ClassStudent_Name)
+            @Html.TextBoxFor(x => x.ClassStudent_Q.ClassStudent_Name, new { @class = "form-control", style = "display: inline;" })
+            <button type="submit" style="padding:unset" class="btn btn-info">查詢</button>
+        </div>
+    </div>
 
     <!-- #endregion -->
-
     <!-- #region 導師資訊 -->
 
     <div style="text-align:center">
@@ -31,7 +34,6 @@ new { ID = "ClassSearch" }))
     </div>
 
     <!-- #endregion -->
-
     <!-- #region 學生清單 -->
 
     <input id="SelectedID" type="hidden" />
@@ -40,7 +42,6 @@ new { ID = "ClassSearch" }))
     </div>
 
     <!-- #endregion -->
-
 }
 
 <script>
