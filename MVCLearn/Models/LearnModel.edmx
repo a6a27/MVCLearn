@@ -16,6 +16,8 @@
           <Property Name="ClassStudent_Sex" Type="nvarchar" MaxLength="1" Nullable="false" />
           <Property Name="ClassStudent_Address" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="ClassStudent_Birth" Type="date" Nullable="false" />
+          <Property Name="ClassStudent_Skill" Type="nvarchar" MaxLength="20" />
+          <Property Name="ClassStudent_Money" Type="nvarchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="ClassStudentParents">
           <Key>
@@ -104,6 +106,8 @@
           <Property Name="ClassStudent_Birth" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="ClassTeacher" Relationship="LearnModel.FK_ClassStudent_ClassTeacher" FromRole="ClassStudent" ToRole="ClassTeacher" />
           <NavigationProperty Name="ClassStudentParents" Relationship="LearnModel.FK_ClassStudentParents_ClassStudent" FromRole="ClassStudent" ToRole="ClassStudentParents" />
+          <Property Name="ClassStudent_Skill" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="ClassStudent_Money" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="ClassStudentParents">
           <Key>
@@ -160,6 +164,8 @@
           <EntitySetMapping Name="ClassStudent">
             <EntityTypeMapping TypeName="LearnModel.ClassStudent">
               <MappingFragment StoreEntitySet="ClassStudent">
+                <ScalarProperty Name="ClassStudent_Money" ColumnName="ClassStudent_Money" />
+                <ScalarProperty Name="ClassStudent_Skill" ColumnName="ClassStudent_Skill" />
                 <ScalarProperty Name="ClassStudent_Birth" ColumnName="ClassStudent_Birth" />
                 <ScalarProperty Name="ClassStudent_Address" ColumnName="ClassStudent_Address" />
                 <ScalarProperty Name="ClassStudent_Sex" ColumnName="ClassStudent_Sex" />

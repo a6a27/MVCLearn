@@ -1,4 +1,9 @@
-﻿//Add by 奇緯 20210630 明細－編輯
+﻿$(function () {
+    Initial_DatePicker();
+});
+
+
+//Add by 奇緯 20210630 明細－編輯
 function Common_List_Edit(i, type) {
     $("[data-toggle='LIST_LABEL[" + i + "]'").attr("style", "display: none");
     $("[data-toggle='LIST_EDIT[" + i + "]'").attr("style", "display: ");
@@ -253,4 +258,38 @@ function InfoAlert(message) {
             confirmButtonText: "確定",
         });
     }
+}
+
+function Initial_DatePicker() {
+    //20210601 Mod by 奇緯 增加選擇年度
+    $('.yearPicker').datepicker({
+        language: 'zh-TW',
+        todayBtn: "linked",
+        autoclose: true,
+        format: "yyyy",
+        startView: "years",
+        minViewMode: "years",
+    });
+
+    $('.monthPicker').datepicker({
+        language: 'zh-TW',
+        todayBtn: "linked",
+        //keyboardNavigation: false,
+        //forceParse: false,
+        //calendarWeeks: false,
+        autoclose: true,
+        format: "yyyy/mm",
+        startView: "months",
+        minViewMode: "months"
+    });
+
+    $('.datepicker').datepicker({
+        language: 'zh-TW',
+        todayBtn: "linked",
+        keyboardNavigation: false,
+        forceParse: false,
+        calendarWeeks: false,
+        autoclose: true,
+        format: "yyyy/mm/dd"
+    });
 }

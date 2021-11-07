@@ -89,7 +89,33 @@ new { ID = FORMID }))
                                 @Html.DisplayNameFor(x => x.ClassStudent_D.ClassStudent.ClassStudent_Birth)
                             </td>
                             <td class="column_search" colspan="5">
-                                @Html.TextBoxFor(x => x.ClassStudent_D.ClassStudent.ClassStudent_Birth, new { }.ReadOnly(CloseALL))
+                                @Html.TextBoxFor(x => x.ClassStudent_D.ClassStudent.ClassStudent_Birth, new { @class = "datepicker" }.ReadOnly(CloseALL))
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="column_title ">
+                                @*學生專長*@
+                                @Html.DisplayNameFor(x => x.ClassStudent_D.ClassStudent.ClassStudent_Skill)
+                            </td>
+                            <td class="column_search" colspan="5">
+                                @Html.EditorFor(x => x.ClassStudent_D.ClassStudent.ClassStudent_Skill,
+                                 "ddl/_ddlAutoMaker",
+                                 new
+                                 {
+                                     Disabled = CloseALL,
+                                     ServiceFunName = "Get_DropDownListTest",
+                                     Parameter = "",
+                                     title = Html.DisplayNameFor(x => x.ClassStudent_D.ClassStudent.ClassStudent_Skill)
+                                 })
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="column_title ">
+                                @*學生家庭狀況*@
+                                @Html.DisplayNameFor(x => x.ClassStudent_D.ClassStudent.ClassStudent_Money)
+                            </td>
+                            <td class="column_search" colspan="5">
+                                @Html.EnumDropDownListFor(x => x.ClassStudent_D.ClassStudent.ClassStudent_Money,new { }.Disabled(CloseALL))
                             </td>
                         </tr>
                     </table>
@@ -170,6 +196,7 @@ new { ID = FORMID }))
     $("#@{@FORMID}").prepend($("#BTN_BAR").html());
     $(function () {
         AccordionEvt('@FORMID');
+        Initial_DatePicker();
     });
 
 

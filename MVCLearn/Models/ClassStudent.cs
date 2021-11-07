@@ -27,6 +27,8 @@ namespace MVCLearn.Models
         public string ClassStudent_Sex { get; set; }
         public string ClassStudent_Address { get; set; }
         public System.DateTime ClassStudent_Birth { get; set; }
+        public string ClassStudent_Skill { get; set; }
+        public string ClassStudent_Money { get; set; }
     
         public virtual ClassTeacher ClassTeacher { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -1,4 +1,5 @@
 ﻿using Common;
+using MVCLearn.Enum;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -70,8 +71,13 @@ namespace MVCLearn.ViewModels
         [DisplayName("學生地址")]
         public string ClassStudent_Address { get; set; }
         [DisplayName("學生出生日期")]
-        public DateTime ClassStudent_Birth { get; set; }
-        
+        public DateTime ClassStudent_Birth { get; set; } = DateTime.Now;
+        [DisplayName("學生專長")]
+        public string ClassStudent_Skill { get; set; }
+
+        [DisplayName("學生家庭狀況")]
+        public ClassStudent_Money ClassStudent_Money { get; set; }
+
     }
 
     /// <summary>

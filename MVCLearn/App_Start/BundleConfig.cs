@@ -12,6 +12,8 @@ namespace MVCLearn
                          "~/Scripts/jquery-{version}.js",
                          "~/Scripts/jquery.blockUI.js",
                          "~/Scripts/sweetalert.min.js",
+                         "~/Scripts/bootstrap-datepicker.min.js",
+                         "~/Scripts/locales/bootstrap-datepicker.zh-TW.min.js",
                          "~/Scripts/CustomJs/Common.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
@@ -31,6 +33,7 @@ namespace MVCLearn
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/bootstrap-datepicker3.min.css",
                       "~/Content/sweetalert.css",
                       "~/Content/site.css",
                       "~/Content/style_custom.css"));

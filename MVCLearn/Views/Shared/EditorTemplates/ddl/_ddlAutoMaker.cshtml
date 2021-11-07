@@ -1,0 +1,53 @@
+﻿@model string
+@using Services
+@using Common
+@*20210607 Mod by 奇緯 自動下拉選單產生 填入對應的Service方法的名稱 及 所需參數*@
+@{
+    //增加可進行Disabled的設定 可於呼叫端傳回Disabled屬性來控制Disabled與否
+    Boolean CloseALL = Convert.ToBoolean(ViewData["Disabled"]);
+    string Title = Convert.ToString(ViewData["Title"]);
+    string ServiceFunName = Convert.ToString(ViewData["ServiceFunName"]);
+    var p = ViewData["Parameter"] == null ? "" : ViewData["Parameter"];
+    Boolean Required = ViewData["Required"] == null ? false : Convert.ToBoolean(ViewData["Required"]);
+    string Name = ViewData["Name"] == null ? "" : Convert.ToString(ViewData["Name"]);
+    Boolean bFiltercolumn = ViewData["filtercolumn"] == null ? true : Convert.ToBoolean(ViewData["filtercolumn"]);
+
+    //防呆 自動判斷是一個參數 還是多個參數
+    var parameters = p is string
+                        ? new[] { (string)p }
+                        : (string[])p;
+    SelectList Result_List;
+    var Data = DependencyResolver.Current.GetService<CommonService>();
+    List<SelectListItem> Data_List = new List<SelectListItem>();
+
+    if (!Required)
+    {
+        //預設是要選一個選項
+        Data_List.Add(new SelectListItem { Value = "", Text = "" });
+    }
+
+    #region 快取機制
+    //var cacheKey = ServiceFunName + ":" + string.Join("-", parameters);
+    ////透過快取 取得下拉的值
+    //var FilterColumn = CustomCacheManager.CacheManager.ReadOrAdd(cacheKey, () =>
+    //(List<Model.DTO.FilterColumn>)typeof(CommonService).GetMethod(ServiceFunName).Invoke(Data, new[] { parameters })
+    //); 
+    #endregion
+    //快取會卡住時使用(備用方法Debugger用)
+    var FilterColumn = (List<SelectListItem>)typeof(CommonService).GetMethod(ServiceFunName).Invoke(Data, new[] { parameters });
+
+    Data_List.AddRange(FilterColumn);
+    Result_List = new SelectList(Data_List, "Value", "Text", Model);
+
+    @*改用Merge來將所有寫入至RouteValueDictionary的屬性賦予在欄位最後面*@
+    var routeValue = new RouteValueDictionary();
+    if (bFiltercolumn)
+    {
+        routeValue["filtercolumn"] = "true";
+    }
+    if (!string.IsNullOrEmpty(Name))
+    {
+        routeValue["Name"] = Name;
+    }
+}
+@Html.DropDownList("", Result_List, routeValue.Merge(new { @class = "select2", style = "min-width: 160px;", title = Title }).Disabled(CloseALL))

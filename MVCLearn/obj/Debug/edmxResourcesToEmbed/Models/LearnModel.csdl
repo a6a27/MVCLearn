@@ -26,6 +26,8 @@
     <Property Name="ClassStudent_Birth" Type="DateTime" Nullable="false" Precision="0" />
     <NavigationProperty Name="ClassTeacher" Relationship="LearnModel.FK_ClassStudent_ClassTeacher" FromRole="ClassStudent" ToRole="ClassTeacher" />
     <NavigationProperty Name="ClassStudentParents" Relationship="LearnModel.FK_ClassStudentParents_ClassStudent" FromRole="ClassStudent" ToRole="ClassStudentParents" />
+    <Property Name="ClassStudent_Skill" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="ClassStudent_Money" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="ClassStudentParents">
     <Key>

@@ -11,6 +11,8 @@
     <Property Name="ClassStudent_Sex" Type="nvarchar" MaxLength="1" Nullable="false" />
     <Property Name="ClassStudent_Address" Type="nvarchar" MaxLength="150" Nullable="false" />
     <Property Name="ClassStudent_Birth" Type="date" Nullable="false" />
+    <Property Name="ClassStudent_Skill" Type="nvarchar" MaxLength="20" />
+    <Property Name="ClassStudent_Money" Type="nvarchar" MaxLength="20" />
   </EntityType>
   <EntityType Name="ClassStudentParents">
     <Key>

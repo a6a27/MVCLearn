@@ -4,6 +4,8 @@
     <EntitySetMapping Name="ClassStudent">
       <EntityTypeMapping TypeName="LearnModel.ClassStudent">
         <MappingFragment StoreEntitySet="ClassStudent">
+          <ScalarProperty Name="ClassStudent_Money" ColumnName="ClassStudent_Money" />
+          <ScalarProperty Name="ClassStudent_Skill" ColumnName="ClassStudent_Skill" />
           <ScalarProperty Name="ClassStudent_Birth" ColumnName="ClassStudent_Birth" />
           <ScalarProperty Name="ClassStudent_Address" ColumnName="ClassStudent_Address" />
           <ScalarProperty Name="ClassStudent_Sex" ColumnName="ClassStudent_Sex" />
