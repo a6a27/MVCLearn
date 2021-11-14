@@ -1,5 +1,6 @@
 ﻿using Common;
 using MVCLearn.Enum;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,8 +24,18 @@ namespace MVCLearn.ViewModels
         /// <summary>
         /// 學生資訊 搜尋結果 清單
         /// </summary>
-        public List<ClassStudent> ClassStudentList { get; set; } = new List<ClassStudent>();
-       
+        public IPagedList<ClassStudent> ClassStudentList { get; set; }
+
+        /// <summary>
+        /// 頁面Size
+        /// </summary>
+        public int Pagesize { get; set; } = 5;
+        
+        /// <summary>
+        /// 頁面編號
+        /// </summary>
+        public int Page { get; set; } = 1;
+
         /// <summary>
         /// 學生資訊明細
         /// </summary>

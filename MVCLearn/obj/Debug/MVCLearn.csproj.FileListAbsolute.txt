@@ -286,3 +286,7 @@ D:\GoogleDrive\Shinher\學習\版控\MVCLearn\MVCLearn\obj\Debug\MVCLearn.dll
 D:\GoogleDrive\Shinher\學習\版控\MVCLearn\MVCLearn\obj\Debug\MVCLearn.pdb
 C:\Users\a6a27R9\source\repos\練習\MVCLearn\MVCLearn\bin\Services.dll
 C:\Users\a6a27R9\source\repos\練習\MVCLearn\MVCLearn\bin\Services.pdb
+C:\Users\a6a27R9\source\repos\練習\MVCLearn\MVCLearn\bin\PagedList.dll
+C:\Users\a6a27R9\source\repos\練習\MVCLearn\MVCLearn\bin\PagedList.xml
+C:\Users\a6a27R9\source\repos\練習\MVCLearn\MVCLearn\bin\PagedList.Mvc.dll
+C:\Users\a6a27R9\source\repos\練習\MVCLearn\MVCLearn\bin\PagedList.Mvc.xml

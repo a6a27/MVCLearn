@@ -1,0 +1,32 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@using Common
+@model IPagedList<object>
+
+<div class="panel-footer">
+    <div class="page-count">
+        第 @(Model.TotalItemCount > 0 ? Model.FirstItemOnPage : 0) - @Model.LastItemOnPage 筆，共 @Model.TotalItemCount 筆
+    </div>
+    <div class="page-list">
+        @Html.PagedListPager(Model, page => page.ToString(), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(
+                new PagedListRenderOptions
+                {
+                    LinkToFirstPageFormat = "第一頁",
+                    LinkToPreviousPageFormat = "前一頁",
+                    LinkToNextPageFormat = "下一頁",
+                    LinkToLastPageFormat = "最後一頁"
+                }
+                , null))
+    </div>
+</div>
+
+
+<script>
+    //// 把原本的事件拿掉 用自己寫的
+    $(".pagination li a").unbind('click');
+    $(".pagination li a").on("click", function () {
+        event.preventDefault();
+        $("[name=Page][type=hidden]").val($(this).attr("href"));
+        $("#Search").trigger('submit');
+    });
+</script>

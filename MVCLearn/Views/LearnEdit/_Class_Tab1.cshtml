@@ -11,11 +11,12 @@ new { ID = "ClassSearch" }))
         <div class="panel-heading panel-heading-footer">
             @Html.DisplayNameFor(x => x.ClassStudent_Q.ClassStudent_Name)
             @Html.TextBoxFor(x => x.ClassStudent_Q.ClassStudent_Name, new { @class = "form-control", style = "display: inline;" })
-            <button type="submit" style="padding:unset" class="btn btn-info">查詢</button>
+            <button id="Search" type="submit" style="padding:unset" class="btn btn-info">查詢</button>
         </div>
     </div>
 
     <!-- #endregion -->
+
     <!-- #region 導師資訊 -->
 
     <div style="text-align:center">
@@ -34,15 +35,19 @@ new { ID = "ClassSearch" }))
     </div>
 
     <!-- #endregion -->
+
     <!-- #region 學生清單 -->
 
+    @Html.HiddenFor(x => x.Page)
     <input id="SelectedID" type="hidden" />
+    @Html.EditorFor(x => x.Pagesize, "/Common/_PageSize")
     <div id="div_Class_Tab1_Q">
         @Html.Partial("_Class_Tab1_Q", Model.ClassStudentList)
     </div>
 
     <!-- #endregion -->
 }
+
 
 <script>
     function SDetail(id, type) {

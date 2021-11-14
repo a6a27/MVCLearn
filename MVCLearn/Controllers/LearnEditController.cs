@@ -1,6 +1,7 @@
 ﻿using Common;
 using MVCLearn.Extensions;
 using MVCLearn.ViewModels;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
@@ -52,7 +53,7 @@ namespace MVCLearn.Controllers
                 editClassViewModel.ClassStudentList = db.ClassStudent
                                                     .MapperToList<MVCLearn.Models.ClassStudent,
                                                                   MVCLearn.ViewModels.ClassStudent>()
-                                                     .ToList();
+                                                     .ToPagedList(editClassViewModel.Page, editClassViewModel.Pagesize);
 
                 #endregion
 
@@ -67,7 +68,7 @@ namespace MVCLearn.Controllers
         /// <returns>View</returns>
         public ActionResult ClassSearch(EditClassViewModel editClassViewModel)
         {
-            editClassViewModel.ClassStudentList = GetClassSearch(editClassViewModel.ClassStudent_Q);
+            editClassViewModel.ClassStudentList = GetClassSearch(editClassViewModel);
             return PartialView("_Class_Tab1_Q", editClassViewModel.ClassStudentList);
         }
 
@@ -75,9 +76,9 @@ namespace MVCLearn.Controllers
         /// 取得班級學生搜尋清單
         /// </summary>
         /// <returns>清單</returns>
-        private List<ClassStudent> GetClassSearch(ClassStudent_Q classStudent_Q)
+        private IPagedList<ClassStudent> GetClassSearch(EditClassViewModel editClassViewModel)
         {
-            List<ClassStudent> classStudents = new List<ClassStudent>();
+            IPagedList<ClassStudent> classStudents = null;
             using (var db = new MVCLearn.Models.LearnEntities())
             {
 
@@ -86,10 +87,12 @@ namespace MVCLearn.Controllers
                 classStudents = db.ClassStudent
                                   .MapperToList<MVCLearn.Models.ClassStudent,
                                                 MVCLearn.ViewModels.ClassStudent>()
-                                  .ToList();
-                if (string.IsNullOrWhiteSpace(classStudent_Q.ClassStudent_Name) == false)
+                                  .ToPagedList(editClassViewModel.Page, editClassViewModel.Pagesize);
+                if (string.IsNullOrWhiteSpace(editClassViewModel.ClassStudent_Q.ClassStudent_Name) == false)
                 {
-                     classStudents = classStudents.Where(x => x.ClassStudent_Name == classStudent_Q.ClassStudent_Name).ToList();
+                     classStudents = classStudents
+                                    .Where(x => x.ClassStudent_Name == editClassViewModel.ClassStudent_Q.ClassStudent_Name)
+                                    .ToPagedList(editClassViewModel.Page, editClassViewModel.Pagesize);
                 }
 
                 #endregion
