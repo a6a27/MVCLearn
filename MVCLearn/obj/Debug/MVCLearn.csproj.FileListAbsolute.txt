@@ -290,3 +290,9 @@ C:\Users\a6a27R9\source\repos\練習\MVCLearn\MVCLearn\bin\PagedList.dll
 C:\Users\a6a27R9\source\repos\練習\MVCLearn\MVCLearn\bin\PagedList.xml
 C:\Users\a6a27R9\source\repos\練習\MVCLearn\MVCLearn\bin\PagedList.Mvc.dll
 C:\Users\a6a27R9\source\repos\練習\MVCLearn\MVCLearn\bin\PagedList.Mvc.xml
+D:\GoogleDrive\Shinher\學習\版控\MVCLearn\MVCLearn\bin\PagedList.dll
+D:\GoogleDrive\Shinher\學習\版控\MVCLearn\MVCLearn\bin\PagedList.Mvc.dll
+D:\GoogleDrive\Shinher\學習\版控\MVCLearn\MVCLearn\bin\Services.dll
+D:\GoogleDrive\Shinher\學習\版控\MVCLearn\MVCLearn\bin\Services.pdb
+D:\GoogleDrive\Shinher\學習\版控\MVCLearn\MVCLearn\bin\PagedList.xml
+D:\GoogleDrive\Shinher\學習\版控\MVCLearn\MVCLearn\bin\PagedList.Mvc.xml
